@@ -43,6 +43,31 @@ nav a{text-decoration:none;font-size:14px;color:var(--dust);display:inline-flex;
 nav a:hover{color:var(--star)}
 .links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .menu-btn{display:none}
+.open-wrap{position:relative}
+.open-btn{font:inherit;font-size:14px;color:var(--dust);background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.open-btn:hover,.open-btn[aria-expanded="true"]{color:var(--star)}
+.open-btn svg{width:12px;height:12px}
+.open-menu{display:none;position:absolute;right:-12px;top:calc(100% + 14px);min-width:260px;padding:8px;background:var(--ink-2);border:1px solid var(--hair);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.45);z-index:20}
+.open-menu.on{display:block}
+.open-menu a{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:10px;color:var(--star)}
+.open-menu a:hover{background:rgba(255,255,255,.05)}
+.open-menu a .pip{margin-top:7px;flex:none}
+.open-menu b{display:block;font-weight:500;font-size:14px}
+.open-menu small{display:block;font-size:12px;color:var(--dust)}
+.gear{width:34px;height:34px;display:grid;place-items:center;padding:0;border:1px solid var(--hair);border-radius:50%;background:transparent;color:var(--dust);cursor:pointer}
+.gear:hover,.gear[aria-expanded="true"]{color:var(--star);border-color:var(--dust)}
+.gear svg{width:18px;height:18px}
+.set-pop{display:none;position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 8px);width:min(360px,calc(100vw - 32px));padding:16px 18px;background:#F7F5EF;color:#141A2E;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.5);z-index:20}
+.set-pop.on{display:block}
+.set-pop h3{margin:0 0 10px;font-family:var(--f-display);font-weight:400;font-size:20px}
+.set-row{display:flex;gap:14px;align-items:flex-start;padding-top:12px;border-top:1px solid #DDD8CC}
+.set-row b{display:block;font-weight:500;font-size:14px}
+.set-state{display:block;font-size:12px;color:#5A6075;margin-top:1px}
+.set-state.ok{color:#2E7D5B}
+.set-row p{margin:6px 0 0;font-size:12.5px;line-height:1.5;color:#4A5068}
+.set-row button{flex:none;font:inherit;font-size:13px;font-weight:500;color:#FFFFFF;background:#141A2E;border:0;border-radius:999px;padding:7px 14px;cursor:pointer}
+.set-row button.quiet{color:#141A2E;background:transparent;box-shadow:inset 0 0 0 1px #CDD2DD}
+.set-row button:disabled{opacity:.5;cursor:default}
 nav a .pip{width:7px;height:7px;border-radius:50%}
 .soon{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust);border:1px solid var(--hair);border-radius:999px;padding:0 6px;line-height:16px}
 .acct{display:flex;align-items:center;gap:8px;padding-left:16px;border-left:1px solid var(--hair)}
@@ -76,19 +101,21 @@ nav a .pip{width:7px;height:7px;border-radius:50%}
 /* the core box is as wide as the screen on phones; only the sign-in card takes taps, so the side constellations stay reachable */
 .core{pointer-events:none}
 .core .signin{pointer-events:auto}
-.signin{background:rgba(13,19,36,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--hair);border-radius:18px;padding:26px 24px 22px;text-align:left}
+.signin{background:#F7F5EF;color:#141A2E;border:0;border-radius:18px;padding:26px 24px 22px;text-align:left;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 18px 60px rgba(0,0,0,.45),0 0 80px rgba(242,223,169,.12)}
 .signin h2{font-family:var(--f-display);font-weight:400;font-size:26px;letter-spacing:.03em;line-height:1.2;margin:0;text-wrap:balance}
-.signin p.lead{color:var(--dust);font-size:14px;margin:6px 0 18px}
+.signin p.lead{color:#4A5068;font-size:14px;margin:6px 0 18px}
 .field{display:grid;gap:5px;margin-bottom:12px}
-.field label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust)}
-.field input{font:inherit;font-size:15px;color:var(--star);background:rgba(7,11,22,.7);border:1px solid var(--hair);border-radius:10px;padding:10px 12px;width:100%}
-.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,223,169,.18)}
-.err{min-height:18px;font-size:13px;color:#F2A3A3;margin:-4px 0 6px}
-.go{width:100%;font:inherit;font-weight:500;font-size:15px;color:var(--ink);background:var(--gold);border:0;border-radius:10px;padding:11px;cursor:pointer}
-.go:hover{filter:brightness(1.06)}
-.meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:13px;color:var(--dust)}
-.meta button{font:inherit;color:var(--dust);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.note{font-size:12px;color:var(--dust);margin:12px 0 0;opacity:.85}
+.field label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5A6075}
+.field input{font:inherit;font-size:16px;color:#141A2E;background:#FFFFFF;border:1px solid #CDD2DD;border-radius:10px;padding:11px 12px;width:100%}
+.field input::placeholder{color:#9AA0B0}
+.field input:focus{outline:none;border-color:#141A2E;box-shadow:0 0 0 3px rgba(20,26,46,.12)}
+.err{min-height:18px;font-size:13px;color:#B42318;margin:-4px 0 6px}
+.go{width:100%;font:inherit;font-weight:500;font-size:15px;color:#FFFFFF;background:#141A2E;border:0;border-radius:10px;padding:11px;cursor:pointer}
+.go:hover{background:#26304F}
+.go:disabled{opacity:.6;cursor:default}
+.meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:13px;color:#5A6075}
+.meta button{font:inherit;color:#4A5068;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.note{font-size:12px;color:#5A6075;margin:12px 0 0;opacity:.85}
 .motto{font-family:var(--f-greek);font-style:italic;font-size:17px;color:var(--dust);line-height:1.5;text-wrap:balance}
 .motto b{font-style:normal;font-weight:400;color:var(--star)}
 .hint{display:block;margin-top:10px;font-family:var(--f-body);font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust)}
@@ -125,14 +152,17 @@ nav a .pip{width:7px;height:7px;border-radius:50%}
 .about blockquote{margin:22px 0 0;padding:0;font-family:var(--f-greek);font-style:italic;font-size:19px;line-height:1.5;color:var(--star)}
 .about blockquote span{display:block;font-family:var(--f-body);font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);margin-top:8px}
 .apps{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.apps li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--hair)}
+.apps li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:16px;align-items:start;padding:20px 0;border-top:1px solid var(--hair)}
 .apps li:last-child{border-bottom:1px solid var(--hair)}
 .apps svg{width:52px;height:52px;display:block}
 .apps strong{font-family:var(--f-display);font-weight:400;font-size:20px;letter-spacing:.03em}
 .apps .g{font-family:var(--f-greek);font-style:italic;color:var(--dust);margin-left:8px}
-.apps .d{display:block;color:var(--dust);font-size:14px}
+.apps .d{display:block;color:var(--star);font-size:14px;margin-top:2px}
+.apps .x{margin:6px 0 10px;color:var(--dust);font-size:14px;line-height:1.55}
+.apps .f{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.apps .f li{display:block;padding:2px 10px;border:1px solid var(--hair);border-radius:999px;font-size:12px;color:var(--star);line-height:1.6}
+.apps .f li:last-child{border-bottom:1px solid var(--hair)}
 .apps .st{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust);border:1px solid var(--hair);border-radius:999px;padding:1px 8px;white-space:nowrap}
-.cycle{margin-top:18px;font-size:13px;color:var(--dust);letter-spacing:.02em}
 
 html{scroll-behavior:smooth}
 #about{scroll-margin-top:64px}
@@ -160,7 +190,11 @@ footer{border-top:1px solid var(--hair)}
     background:var(--ink);border-bottom:1px solid var(--hair);padding:4px max(16px,env(safe-area-inset-left,0px)) 10px}
   .links.open{display:flex}
   .links a{padding:13px 2px;font-size:16px;color:var(--star)}
-  .links a+a{border-top:1px solid var(--hair)}
+  .links a+a,.links .open-wrap{border-top:1px solid var(--hair)}
+  .open-btn{display:none}
+  .open-menu,.open-menu.on{display:block;position:static;min-width:0;padding:0;background:none;border:0;box-shadow:none}
+  .open-menu a{padding:12px 2px;border-radius:0}
+  .open-menu a+a{border-top:1px solid var(--hair)}
   .acct{border-left:0;padding-left:0}
   .acct button{padding:5px 12px}
   .sky{height:clamp(640px,calc(100svh - 62px),780px)}
@@ -236,10 +270,27 @@ footer{border-top:1px solid var(--hair)}
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="links" id="links">
       <a href="#about" id="nav-about">About</a>
-      <a href="https://jkwahk02.github.io/Telos/" target="_blank" rel="noopener"><span class="pip" style="background:var(--telos)"></span>Telos</a>
-      <a href="https://jkwahk02.github.io/TaeSyllaPro/" target="_blank" rel="noopener"><span class="pip" style="background:var(--taesylla)"></span>TaeSylla</a>
-      <a href="https://jkwahk02.github.io/Ergon/" target="_blank" rel="noopener"><span class="pip" style="background:var(--ergon)"></span>Ergon</a>
-      <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span>Arete <span class="soon">Nov</span></a>
+      <div class="open-wrap">
+        <button type="button" class="open-btn" id="openBtn" aria-expanded="false" aria-controls="openMenu">Open<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+        <div class="open-menu" id="openMenu">
+          <a href="https://jkwahk02.github.io/Telos/" id="nav-telos"><span class="pip" style="background:var(--telos)"></span><span><b>Telos</b><small>Advising and academic planning</small></span></a>
+          <a href="https://jkwahk02.github.io/TaeSyllaPro/"><span class="pip" style="background:var(--taesylla)"></span><span><b>TaeSylla</b><small>Course design and syllabus</small></span></a>
+          <a href="https://jkwahk02.github.io/Ergon/"><span class="pip" style="background:var(--ergon)"></span><span><b>Ergon</b><small>Student work and showrooms</small></span></a>
+          <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span><span><b>Arete <span class="soon">Nov</span></b><small>Learning outcomes assessment</small></span></a>
+        </div>
+      </div>
+      </div>
+      <button type="button" class="gear" id="gearBtn" aria-label="Settings" aria-expanded="false" aria-controls="setPop"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M10.3 2.8h3.4l.5 2.6a7.4 7.4 0 0 1 1.9 1.1l2.5-.9 1.7 2.9-2 1.7a7.6 7.6 0 0 1 0 2.2l2 1.7-1.7 2.9-2.5-.9a7.4 7.4 0 0 1-1.9 1.1l-.5 2.6h-3.4l-.5-2.6a7.4 7.4 0 0 1-1.9-1.1l-2.5.9-1.7-2.9 2-1.7a7.6 7.6 0 0 1 0-2.2l-2-1.7 1.7-2.9 2.5.9a7.4 7.4 0 0 1 1.9-1.1z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <div class="set-pop" id="setPop" role="dialog" aria-label="Settings">
+        <h3>Settings</h3>
+        <div class="set-row">
+          <div>
+            <b>Google Calendar</b>
+            <span class="set-state" id="gcalState">Not connected</span>
+            <p>Connect once here. Telos adds advising meetings and TaeSylla exports class schedules to your calendar without asking again.</p>
+          </div>
+          <button type="button" id="gcalBtn">Connect</button>
+        </div>
       </div>
       <div class="acct" id="acct">
         <button type="button" id="acctBtn">Sign in</button>
@@ -273,13 +324,20 @@ footer{border-top:1px solid var(--hair)}
     <div class="core">
       <form class="signin" id="signin" novalidate>
         <h2>One sign-in for the whole suite</h2>
-        <p class="lead">Use your Taejae account for Telos, TaeSylla, Ergon and Arete.</p>
+        <p class="lead">Sign in once with your Taejae email and the same password you use for Telos, TaeSylla and Ergon.</p>
         <div class="field"><label for="email">Taejae email</label><input id="email" type="email" autocomplete="username" placeholder="name@taejae.ac.kr"></div>
         <div class="field"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password"></div>
         <p class="err" id="err" role="alert"></p>
-        <button class="go" type="submit">Sign in</button>
+        <button class="go" type="submit" id="go">Sign in</button>
         <div class="meta" style="justify-content:flex-end"><button type="button" id="peek">Look around first</button></div>
-        <p class="note">Preview page. Sign-in is not connected yet, so nothing you type leaves this page.</p>
+      </form>
+      <form class="signin" id="pwform" hidden novalidate>
+        <h2>Set your password</h2>
+        <p class="lead">This is your first sign-in. Choose a new password; it works in every app of the suite.</p>
+        <div class="field"><label for="pw1">New password</label><input id="pw1" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>
+        <div class="field"><label for="pw2">Confirm password</label><input id="pw2" type="password" autocomplete="new-password"></div>
+        <p class="err" id="err2" role="alert"></p>
+        <button class="go" type="submit" id="go2">Set password and continue</button>
       </form>
       <div class="motto" id="motto" hidden>
         <span class="mq"><b>Purpose</b> guides a well-designed <b>course</b>, and the course gives shape to the <b>work</b>. Through that work <b>excellence</b> is revealed, and it fulfils its <b>purpose</b>.</span>
@@ -302,12 +360,11 @@ footer{border-top:1px solid var(--hair)}
       </div>
       <div>
         <ul class="apps">
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span></div><span class="st">In operation</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span></div><span class="st">In operation</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span></div><span class="st">Pilot · open</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span></div><span class="st">Pilot · Nov 2026</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span><p class="x">Students set goals and plan their courses with their advisor. Advisors keep a record of every meeting, and chairs see the whole program.</p><ul class="f"><li>Advising meetings and logs</li><li>Booking by office hours</li><li>Graduation requirements</li><li>Course plan by term</li><li>Program view for chairs</li></ul></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span><p class="x">Faculty design each course in one place and publish the syllabus that students read. Chairs keep the curriculum map.</p><ul class="f"><li>Syllabus and schedule</li><li>CLOs and rubrics</li><li>Readings and lesson plans</li><li>Curriculum map</li><li>Course Finder</li></ul></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span><p class="x">Students keep their work in studios and send it to showrooms, where the class or guests view it and faculty rate it.</p><ul class="f"><li>Studios for projects and teams</li><li>Showrooms with dated sessions</li><li>Invitations for class or guests</li><li>Rubric rating next to the work</li><li>Votes and comments</li></ul></div><span class="st">Pilot · open</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span><p class="x">Arete turns the ratings from Ergon into course and program outcomes, and keeps the record for accreditation.</p><ul class="f"><li>Rubric to CLO, PLO and ILO</li><li>Student progress over terms</li><li>Course reports for faculty</li><li>Program results for chairs</li><li>Closing the loop</li></ul></div><span class="st">Pilot · Nov 2026</span></li>
         </ul>
-        <p class="cycle">Telos → TaeSylla → Ergon → Arete → back to Telos</p>
       </div>
     </div>
   </section>
@@ -320,6 +377,7 @@ footer{border-top:1px solid var(--hair)}
   </div>
 </footer>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 (function(){
   const APPS = {
@@ -421,7 +479,7 @@ footer{border-top:1px solid var(--hair)}
       '<div class="refl"><span class="status">'+d.status+'</span><h2>'+d.name+'</h2>'+
       '<p class="gk"><i>'+d.greek+'</i> · '+d.mean+'</p>'+
       '<p class="def">'+d.def+'</p><p class="body">'+d.body+'</p>'+
-      (d.href ? '<a class="open" href="'+d.href+'" target="_blank" rel="noopener">Open '+d.name+' →</a>' : '<span class="pilot">Opens with the November pilot</span>')+
+      (d.href ? '<a class="open" href="'+d.href+'">Open '+d.name+' →</a>' : '<span class="pilot">Opens with the November pilot</span>')+
       '<span class="dots" aria-hidden="true">'+ORDER.map(o=>'<i'+(o===k?' class="on"':'')+'></i>').join('')+'</span></div>';
     card.classList.add("show"); sky.classList.add("showing");
   }
@@ -435,9 +493,13 @@ footer{border-top:1px solid var(--hair)}
       el.addEventListener("focus",()=>show(el.id));
       el.addEventListener("blur",hide);
     }
+    // a click opens the app, the same as its "Open" button or the top menu.
+    // On a touch screen the first tap only shows the description, a second tap opens the app.
     el.addEventListener("click",()=>{
+      const href = APPS[el.id].href, open = current===el.id && card.classList.contains("show");
+      if(href && (!touch || open)){ location.href = href; return; }
       if(W < 640){ show(el.id); return; }
-      current===el.id && card.classList.contains("show") ? (touch ? hideNow() : hide()) : show(el.id,true);
+      open ? (touch ? hideNow() : hide()) : show(el.id,true);
     });
   });
   /* phones: swipe the well to the next app in cycle order; tap outside it to close */
@@ -454,13 +516,64 @@ footer{border-top:1px solid var(--hair)}
   card.addEventListener("mouseenter",()=>clearTimeout(hideT));
   card.addEventListener("mouseleave",hide);
 
-  /* sign-in (preview only: nothing is sent or stored) */
+  /* sign-in: the same Supabase accounts as Telos, TaeSylla and Ergon.
+     The session is kept in sessionStorage under a key every suite app reads (same origin, same tab),
+     so opening an app from here skips its sign-in. Closing the tab signs out, as in the apps. */
+  const SUPABASE_URL = "https://ecktuualyuvctixlkjve.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVja3R1dWFseXV2Y3RpeGxranZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxOTczOTgsImV4cCI6MjA5MDc3MzM5OH0.EauKNa2US2VQ4dTdCzx0DBZXlw4OR-CQnlMRuulYfB8";
+  const SUITE_KEY = "paideia_session";
+  const SUITE_KEYS = ["paideia_session", "telos_faculty_session", "telos_student_session", "taesylla_session", "ergon_session", "paideia_gcal"];
+  // Google Calendar: one token for the suite (same Google client as Telos and TaeSylla). Google gives the
+  // browser an access token for about an hour and no refresh token, so it lives in this tab only.
+  const GCAL_CLIENT_ID = "290444850759-26d8ch9qjk7hvsudgavlqi8tdngsgism.apps.googleusercontent.com";
+  const GCAL_SCOPE = "https://www.googleapis.com/auth/calendar";
+  const GCAL_KEY = "paideia_gcal";
+  let sbUser = null, role = null, attempts = 0, lockedOut = false;
   const form = document.getElementById("signin"), err = document.getElementById("err");
-  const email = document.getElementById("email"), pw = document.getElementById("pw");
+  const email = document.getElementById("email"), pw = document.getElementById("pw"), go = document.getElementById("go");
+  const pwform = document.getElementById("pwform"), err2 = document.getElementById("err2"), go2 = document.getElementById("go2");
   const motto = document.getElementById("motto"), acct = document.getElementById("acct");
+
+  function saveSession(){ try{ sessionStorage.setItem(SUITE_KEY, JSON.stringify(sbUser)); }catch(e){} }
+  function clearSessions(){ try{ SUITE_KEYS.forEach(k=>sessionStorage.removeItem(k)); }catch(e){} }
+  // the newest session any suite app left in this tab
+  function newestSession(){
+    return SUITE_KEYS.map(k=>{ try{ return JSON.parse(sessionStorage.getItem(k)||"null"); }catch(e){ return null; } })
+      .filter(x=>x && x.access_token).sort((a,b)=>(b.expires_at||0)-(a.expires_at||0))[0] || null;
+  }
+  async function fresh(){
+    if(!sbUser?.access_token) return false;
+    if(sbUser.expires_at && sbUser.expires_at*1000 - Date.now() > 60000) return true;
+    if(!sbUser.refresh_token) return false;
+    try{
+      const r = await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=refresh_token", { method:"POST",
+        headers:{ apikey:SUPABASE_KEY, "Content-Type":"application/json" }, body: JSON.stringify({ refresh_token: sbUser.refresh_token }) });
+      if(!r.ok) return false;
+      sbUser = await r.json(); saveSession(); return true;
+    }catch(e){ return false; }
+  }
+  const authHeaders = ()=>({ apikey:SUPABASE_KEY, Authorization:"Bearer "+sbUser.access_token, "Content-Type":"application/json" });
+  const meEmail = ()=>String(sbUser?.user?.email||"").toLowerCase();
+  // faculty or student, and whether this is the first sign-in
+  async function profile(){
+    const q = "?email=eq."+encodeURIComponent(meEmail())+"&select=name_en,must_change_password";
+    for(const [table, r] of [["faculty_profiles","faculty"],["students","student"]]){
+      try{
+        const res = await fetch(SUPABASE_URL+"/rest/v1/"+table+q, { headers: authHeaders() });
+        const rows = res.ok ? await res.json() : [];
+        if(rows.length) return { role:r, name: rows[0].name_en || "", must: rows[0].must_change_password === true };
+      }catch(e){}
+    }
+    return { role:null, name:"", must:false };
+  }
+  // Telos has a separate app for students
+  function setLinks(){
+    const t = role === "student" ? "https://jkwahk02.github.io/Telos/student/" : "https://jkwahk02.github.io/Telos/";
+    APPS.telos.href = t; document.getElementById("nav-telos").href = t;
+  }
   function unlock(who){
     signedIn = !!who; sky.classList.remove("locked");
-    form.hidden = true; motto.hidden = false;
+    form.hidden = true; pwform.hidden = true; motto.hidden = false;
     renderAcct(who);
     if(W < 640) show(current || "telos");
   }
@@ -470,33 +583,123 @@ footer{border-top:1px solid var(--hair)}
       const local = who.split("@")[0];
       const ini = local.split(/[._-]/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase() || local.slice(0,2).toUpperCase();
       acct.innerHTML = '<span class="avatar" aria-hidden="true">'+ini+'</span><span class="acct-mail">'+who.replace(/[<>&"]/g,"")+'</span><button type="button" id="acctBtn">Sign out</button>';
-      document.getElementById("acctBtn").onclick = lock;
+      document.getElementById("acctBtn").onclick = signOut;
     } else {
       acct.innerHTML = '<button type="button" id="acctBtn">Sign in</button>';
       document.getElementById("acctBtn").onclick = lock;
     }
   }
   function lock(){
-    signedIn=false; sky.classList.add("locked"); form.hidden=false; motto.hidden=true;
+    signedIn=false; sky.classList.add("locked"); form.hidden=false; pwform.hidden=true; motto.hidden=true;
     card.classList.remove("show"); sky.classList.remove("showing"); pw.value=""; err.textContent=""; renderAcct(null);
     sky.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"}); setTimeout(()=>email.focus(),300);
   }
-  form.addEventListener("submit", e=>{
+  // signing out here signs out of every suite app in this tab; the refresh token is revoked too
+  function gcalShared(){
+    try{ const g = JSON.parse(sessionStorage.getItem(GCAL_KEY)||"null"); return g && g.exp - Date.now() > 60000 ? g : null; }catch(e){ return null; }
+  }
+  const gcalState = document.getElementById("gcalState"), gcalBtn = document.getElementById("gcalBtn");
+  function renderSettings(){
+    const g = gcalShared();
+    gcalBtn.disabled = !sbUser;
+    gcalBtn.className = g ? "quiet" : "";
+    gcalBtn.textContent = g ? "Disconnect" : "Connect";
+    gcalState.className = "set-state" + (g ? " ok" : "");
+    gcalState.textContent = !sbUser ? "Sign in first" : g ? "Connected" + (g.email ? " as " + g.email : "") : "Not connected";
+  }
+  gcalBtn.addEventListener("click", ()=>{
+    if(gcalShared()){ try{ sessionStorage.removeItem(GCAL_KEY); }catch(e){} renderSettings(); return; }
+    if(typeof google === "undefined" || !google.accounts?.oauth2){ gcalState.textContent = "Google sign-in could not load here. Try again on the live site."; return; }
+    google.accounts.oauth2.initTokenClient({
+      client_id: GCAL_CLIENT_ID, scope: GCAL_SCOPE, prompt: "select_account", hint: meEmail() || undefined,
+      callback: resp=>{
+        if(resp.error){ gcalState.textContent = "Google sign-in failed: " + resp.error; return; }
+        try{ sessionStorage.setItem(GCAL_KEY, JSON.stringify({ token: resp.access_token, exp: Date.now() + (resp.expires_in || 3600)*1000, email: meEmail() })); }catch(e){}
+        renderSettings();
+      },
+      error_callback: err=>{ gcalState.textContent = err && err.type === "popup_failed_to_open" ? "The browser blocked the Google window. Allow pop-ups for this site and try again." : "Google sign-in was not completed."; },
+    }).requestAccessToken();
+  });
+  function signOut(){
+    if(sbUser?.access_token) fetch(SUPABASE_URL+"/auth/v1/logout?scope=local", { method:"POST", headers: authHeaders() }).catch(()=>{});
+    sbUser = null; role = null; clearSessions(); setLinks(); renderSettings(); lock();
+  }
+  async function afterAuth(){
+    const p = await profile(); role = p.role; setLinks();
+    if(p.must){ form.hidden = true; pwform.hidden = false; err2.textContent = ""; document.getElementById("pw1").focus(); return; }
+    unlock(meEmail()); renderSettings();
+  }
+  form.addEventListener("submit", async e=>{
     e.preventDefault();
+    if(lockedOut) return;
     const v = email.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ err.textContent="Enter your Taejae email address."; email.focus(); return; }
-    if(!pw.value){ err.textContent="Enter your password."; pw.focus(); return; }
-    err.textContent=""; pw.value=""; unlock(v);
+    if(!v || !pw.value){ err.textContent = "Email and password are required."; return; }
+    if(!/@taejae\.ac\.kr$/i.test(v)){ err.textContent = "Please use your @taejae.ac.kr email."; email.focus(); return; }
+    go.disabled = true; go.textContent = "Signing in…"; err.textContent = "";
+    try{
+      const r = await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password", { method:"POST",
+        headers:{ apikey:SUPABASE_KEY, "Content-Type":"application/json" }, body: JSON.stringify({ email:v, password:pw.value }) });
+      const data = await r.json();
+      if(!r.ok) throw new Error(data.error_description || data.msg || "Sign-in failed");
+      sbUser = data; saveSession(); attempts = 0; pw.value = "";
+      await afterAuth();
+    }catch(ex){
+      attempts++;
+      if(attempts >= 5){
+        lockedOut = true; err.textContent = "Too many failed attempts. Please wait 30 seconds.";
+        setTimeout(()=>{ attempts = 0; lockedOut = false; err.textContent = ""; }, 30000);
+      } else err.textContent = ex.message;
+    }
+    go.disabled = false; go.textContent = "Sign in";
+  });
+  pwform.addEventListener("submit", async e=>{
+    e.preventDefault();
+    const p1 = document.getElementById("pw1").value, p2 = document.getElementById("pw2").value;
+    if(p1.length < 8){ err2.textContent = "Password must be at least 8 characters."; return; }
+    if(p1 !== p2){ err2.textContent = "Passwords do not match."; return; }
+    go2.disabled = true; go2.textContent = "Saving…"; err2.textContent = "";
+    try{
+      await fresh();
+      const r = await fetch(SUPABASE_URL+"/auth/v1/user", { method:"PUT", headers: authHeaders(), body: JSON.stringify({ password:p1 }) });
+      if(!r.ok){ const j = await r.json().catch(()=>({})); throw new Error(j.msg || j.message || "Password change failed"); }
+      const table = role === "student" ? "students" : "faculty_profiles";
+      const pr = await fetch(SUPABASE_URL+"/rest/v1/"+table+"?email=eq."+encodeURIComponent(meEmail()), { method:"PATCH", headers: authHeaders(), body: JSON.stringify({ must_change_password:false }) });
+      if(!pr.ok) throw new Error("Profile update failed: "+pr.status);
+      document.getElementById("pw1").value = ""; document.getElementById("pw2").value = "";
+      unlock(meEmail());
+    }catch(ex){ err2.textContent = ex.message; }
+    go2.disabled = false; go2.textContent = "Set password and continue";
   });
   [email,pw].forEach(i=>i.addEventListener("input",()=>err.textContent=""));
   document.getElementById("peek").addEventListener("click",()=>unlock(null));
   document.getElementById("acctBtn").onclick = lock;
+  // a session left by any suite app in this tab signs this page in too
+  (async ()=>{
+    const saved = newestSession();
+    if(!saved) return;
+    sbUser = saved;
+    // the token must still be accepted by Supabase, not just unexpired
+    const ok = await fresh() && await fetch(SUPABASE_URL+"/auth/v1/user", { headers: authHeaders() }).then(r=>r.ok).catch(()=>false);
+    if(ok){ saveSession(); await afterAuth(); } else { sbUser = null; clearSessions(); }
+  })();
   document.querySelectorAll("nav a[data-focus]").forEach(a=>a.addEventListener("click",e=>{
     e.preventDefault(); if(sky.classList.contains("locked")) unlock(null);
     sky.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"});
     setTimeout(()=>{ const el=document.getElementById(a.dataset.focus); el.focus({preventScroll:true}); show(a.dataset.focus,true); }, reduce?0:350);
   }));
 
+  // Open ▾ and the settings gear: one popover at a time, closed by a click outside or Escape
+  const openBtn = document.getElementById("openBtn"), openMenu = document.getElementById("openMenu");
+  const gearBtn = document.getElementById("gearBtn"), setPop = document.getElementById("setPop");
+  function setOpen(on){ openMenu.classList.toggle("on", on); openBtn.setAttribute("aria-expanded", String(on)); }
+  function setGear(on){ setPop.classList.toggle("on", on); gearBtn.setAttribute("aria-expanded", String(on)); if(on) renderSettings(); }
+  openBtn.addEventListener("click", e=>{ e.stopPropagation(); setGear(false); setOpen(!openMenu.classList.contains("on")); });
+  gearBtn.addEventListener("click", e=>{ e.stopPropagation(); setOpen(false); setGear(!setPop.classList.contains("on")); });
+  openMenu.addEventListener("click", e=>{ if(e.target.closest("a")) setOpen(false); });
+  setPop.addEventListener("click", e=>e.stopPropagation());
+  document.addEventListener("click", ()=>{ setOpen(false); setGear(false); });
+  document.addEventListener("keydown", e=>{ if(e.key === "Escape"){ setOpen(false); setGear(false); } });
+  renderSettings();
   const menuBtn = document.getElementById("menuBtn"), links = document.getElementById("links");
   function setMenu(open){ links.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", String(open)); }
   menuBtn.addEventListener("click", e=>{ e.stopPropagation(); setMenu(!links.classList.contains("open")); });
