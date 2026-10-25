@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Paideia, the Taejae Learning Suite: Telos, TaeSylla, Ergon and Arete in one learning cycle.">
+<title>Paideia · Taejae Learning Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Gentium+Book+Plus:ital@0;1&display=swap">
+<style>
+/* Layout: one night sky. A spiral galaxy fills the first screen; four app constellations sit on a faint orbit around it, in cycle order. Sign-in floats at the core. About and credits follow below. */
+:root{
+  --ink:#070B16;           /* night sky, blue-biased */
+  --ink-2:#0D1324;         /* raised panels */
+  --star:#EEF1F8;          /* text, stars */
+  --dust:#97A0B8;          /* secondary text */
+  --hair:rgba(214,222,245,.14);
+  --gold:#F2DFA9;          /* Polaris warmth, focus */
+  --telos:#5AA6EE; --taesylla:#46BE92; --ergon:#E89447; --arete:#A77BE0;
+  --f-display:"Marcellus","Cinzel","Times New Roman",serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-greek:"Gentium Book Plus","Palatino Linotype","Times New Roman",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink);color:var(--star)}
+body{margin:0;font-family:var(--f-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(7,11,22,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.bar{display:flex;align-items:center;gap:20px;padding-block:12px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-size:17px;letter-spacing:.04em;white-space:nowrap}
+.brand b{font-weight:400;font-size:19px;letter-spacing:.06em}
+.brand .sub{color:var(--dust);font-size:14px;letter-spacing:.03em}
+.brand-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px 2px rgba(242,223,169,.55)}
+nav{margin-left:auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:flex-end}
+nav a{text-decoration:none;font-size:14px;color:var(--dust);display:inline-flex;align-items:center;gap:6px}
+nav a:hover{color:var(--star)}
+.links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.menu-btn{display:none}
+nav a .pip{width:7px;height:7px;border-radius:50%}
+.soon{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust);border:1px solid var(--hair);border-radius:999px;padding:0 6px;line-height:16px}
+.acct{display:flex;align-items:center;gap:8px;padding-left:16px;border-left:1px solid var(--hair)}
+.acct button{font:inherit;font-size:14px;color:var(--star);background:transparent;border:1px solid var(--hair);border-radius:999px;padding:5px 14px;cursor:pointer}
+.acct button:hover{border-color:var(--dust)}
+.avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:500;background:var(--ink-2);border:1px solid var(--hair)}
+.acct-mail{font-size:13px;color:var(--dust);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* sky */
+.sky{position:relative;height:clamp(600px,84vh,840px);overflow:hidden}
+#galaxy{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cst{position:absolute;width:var(--sz,150px);transform:translate(-50%,-50%);background:none;border:0;padding:0;color:var(--star);cursor:pointer;text-align:center;transition:opacity .6s,filter .3s}
+.cst svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 18px color-mix(in srgb,var(--c) 55%,transparent))}
+.cst line,.cst polyline,.cst polygon{stroke:var(--c);stroke-opacity:.75;stroke-width:1.4;fill:none}
+.cst .faint{stroke-opacity:.3}
+.cst circle,.cst path{fill:#fff}
+.cst .tw{animation:tw 4s ease-in-out infinite}
+.cst .tw:nth-child(2n){animation-delay:-1.3s}.cst .tw:nth-child(3n){animation-delay:-2.6s}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.55}}
+.cst .nm{display:block;font-family:var(--f-display);font-size:20px;letter-spacing:.05em;margin-top:6px}
+.cst .gk{display:block;font-family:var(--f-greek);font-style:italic;font-size:14px;color:var(--dust)}
+.cst .en{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);opacity:.85;margin-top:1px}
+.cst:hover svg,.cst.on svg{filter:drop-shadow(0 0 8px var(--c)) drop-shadow(0 0 28px var(--c))}
+.locked .cst{opacity:.45;pointer-events:none}
+
+.mast{position:absolute;left:0;right:0;top:clamp(18px,4.5vh,40px);text-align:center;pointer-events:none;z-index:2}
+.mast h1{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(30px,4.2vw,46px);letter-spacing:.08em;line-height:1.1}
+.mast .gk{display:block;margin-top:4px;font-family:var(--f-greek);font-style:italic;font-size:clamp(17px,1.8vw,21px);color:var(--dust)}
+.mast p{margin:4px 0 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dust)}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(360px,calc(100% - 32px));text-align:center}
+/* the core box is as wide as the screen on phones; only the sign-in card takes taps, so the side constellations stay reachable */
+.core{pointer-events:none}
+.core .signin{pointer-events:auto}
+.signin{background:rgba(13,19,36,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--hair);border-radius:18px;padding:26px 24px 22px;text-align:left}
+.signin h2{font-family:var(--f-display);font-weight:400;font-size:26px;letter-spacing:.03em;line-height:1.2;margin:0;text-wrap:balance}
+.signin p.lead{color:var(--dust);font-size:14px;margin:6px 0 18px}
+.field{display:grid;gap:5px;margin-bottom:12px}
+.field label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust)}
+.field input{font:inherit;font-size:15px;color:var(--star);background:rgba(7,11,22,.7);border:1px solid var(--hair);border-radius:10px;padding:10px 12px;width:100%}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,223,169,.18)}
+.err{min-height:18px;font-size:13px;color:#F2A3A3;margin:-4px 0 6px}
+.go{width:100%;font:inherit;font-weight:500;font-size:15px;color:var(--ink);background:var(--gold);border:0;border-radius:10px;padding:11px;cursor:pointer}
+.go:hover{filter:brightness(1.06)}
+.meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:13px;color:var(--dust)}
+.meta button{font:inherit;color:var(--dust);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.note{font-size:12px;color:var(--dust);margin:12px 0 0;opacity:.85}
+.motto{font-family:var(--f-greek);font-style:italic;font-size:17px;color:var(--dust);line-height:1.5;text-wrap:balance}
+.motto b{font-style:normal;font-weight:400;color:var(--star)}
+.hint{display:block;margin-top:10px;font-family:var(--f-body);font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust)}
+
+/* info card */
+.card{position:absolute;width:300px;background:rgba(13,19,36,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--hair);border-radius:16px;padding:18px 18px 16px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:4}
+/* the description always opens in one fixed place: the core of the galaxy, where the motto sits */
+.card{left:50%;top:50%;width:min(340px,calc(100% - 32px));height:330px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;transform:translate(-50%,calc(-50% + 6px))}
+.card a.open,.card .pilot{margin-top:auto;align-self:flex-start}
+.card dl{margin-bottom:12px}
+.card.show{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}
+.motto{transition:opacity .25s}
+.sky.showing .motto{opacity:0}
+.card .top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.card h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0;color:var(--c)}
+.card .status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust);border:1px solid var(--hair);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.card .gk{font-family:var(--f-greek);font-size:15px;color:var(--dust);margin:2px 0 10px}
+.card .gk i{color:var(--star)}
+.card .def{font-weight:500;margin:0 0 4px}
+.card .body{color:var(--dust);font-size:14px;margin:0 0 12px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;margin:0 0 14px}
+.card dt{color:var(--dust)}
+.card dd{margin:0}
+.card a.open{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;text-decoration:none;color:var(--ink);background:var(--c);border-radius:999px;padding:6px 14px}
+.card .pilot{font-size:13px;color:var(--dust)}
+
+/* about */
+.about{max-width:1080px;margin:0 auto;padding-block:72px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px}
+.about h2{font-family:var(--f-display);font-weight:400;font-size:34px;letter-spacing:.02em;line-height:1.15;margin:0 0 16px;text-wrap:balance}
+.about p{color:var(--dust);max-width:62ch;margin:0 0 14px}
+.about p.pai{margin:22px 0 0;color:var(--star);font-family:var(--f-display);font-size:18px;letter-spacing:.02em}
+.about p.pai i{font-family:var(--f-greek);color:var(--dust)}
+.about p.pai+blockquote{margin-top:10px}
+.about blockquote{margin:22px 0 0;padding:0;font-family:var(--f-greek);font-style:italic;font-size:19px;line-height:1.5;color:var(--star)}
+.about blockquote span{display:block;font-family:var(--f-body);font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);margin-top:8px}
+.apps{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.apps li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--hair)}
+.apps li:last-child{border-bottom:1px solid var(--hair)}
+.apps svg{width:52px;height:52px;display:block}
+.apps strong{font-family:var(--f-display);font-weight:400;font-size:20px;letter-spacing:.03em}
+.apps .g{font-family:var(--f-greek);font-style:italic;color:var(--dust);margin-left:8px}
+.apps .d{display:block;color:var(--dust);font-size:14px}
+.apps .st{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dust);border:1px solid var(--hair);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.cycle{margin-top:18px;font-size:13px;color:var(--dust);letter-spacing:.02em}
+
+html{scroll-behavior:smooth}
+#about{scroll-margin-top:64px}
+.kicker{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dust);margin-bottom:14px}
+footer{border-top:1px solid var(--hair)}
+.foot{max-width:1080px;margin:0 auto;padding-block:28px 36px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;justify-content:space-between}
+.foot .who{font-family:var(--f-display);font-size:18px;letter-spacing:.03em}
+.foot .who small{display:block;font-family:var(--f-body);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dust)}
+.foot .fine{font-size:13px;color:var(--dust)}
+
+@media (max-width:860px){
+  .about{grid-template-columns:1fr;gap:36px;padding-block:56px 32px}
+  .acct-mail{display:none}
+}
+.h-tap{display:none}
+@media (hover:none){.h-hover{display:none}.h-tap{display:inline}}
+/* phones: brand + menu + account in the bar; a tall orbit (Telos top, TaeSylla right, Ergon bottom, Arete left) */
+@media (max-width:640px){
+  .brand .sub{display:none}
+  .bar{gap:12px}
+  nav{gap:10px}
+  .menu-btn{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:38px;height:38px;padding:0 11px;border:1px solid var(--hair);border-radius:50%;background:transparent;cursor:pointer}
+  .menu-btn span{display:block;height:1.5px;background:var(--star);border-radius:1px}
+  .links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--ink);border-bottom:1px solid var(--hair);padding:4px max(16px,env(safe-area-inset-left,0px)) 10px}
+  .links.open{display:flex}
+  .links a{padding:13px 2px;font-size:16px;color:var(--star)}
+  .links a+a{border-top:1px solid var(--hair)}
+  .acct{border-left:0;padding-left:0}
+  .acct button{padding:5px 12px}
+  .sky{height:clamp(640px,calc(100svh - 62px),780px)}
+  .mast{top:14px}
+  .mast h1{font-size:30px}
+  .mast .gk{font-size:16px}
+  .mast p{font-size:10.5px;letter-spacing:.2em}
+  .cst{--sz:60px}
+  .cst svg{width:60px;margin:0 auto}
+  .cst .nm{font-size:13.5px;margin-top:2px}.cst .gk{font-size:10.5px}.cst .en{display:none}
+  .locked .cst{opacity:.15}
+  .locked #galaxy{opacity:.7}
+  .core{top:56%}
+  .motto{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .cst .tw{animation:none}
+  .card{transition:none}
+}
+
+/* the description as a reflection in a well: a round pool of dark water at the core, tinted by the app's colour.
+   Ripples spread once when it opens and the words surface from a soft blur. No box, no border. */
+.card{width:min(560px,calc(100vw - 8px));height:auto;aspect-ratio:1;padding:0;border:0;border-radius:50%;
+  background:radial-gradient(circle closest-side,color-mix(in srgb,var(--c) 20%,rgba(7,11,22,.96)) 0%,rgba(7,11,22,.95) 52%,rgba(7,11,22,.82) 68%,rgba(7,11,22,.4) 84%,rgba(7,11,22,0) 100%);
+  backdrop-filter:none;-webkit-backdrop-filter:none;overflow:visible;display:grid;place-items:center;text-align:center}
+.card .well-rim{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle closest-side,transparent 55%,color-mix(in srgb,var(--c) 14%,transparent) 80%,transparent 100%);pointer-events:none}
+.card .rip{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle closest-side,transparent 70%,color-mix(in srgb,var(--c) 22%,transparent) 88%,transparent 100%);opacity:0;pointer-events:none}
+.card.show .rip{animation:rip 2.4s ease-out forwards}
+.card.show .rip:nth-child(3){animation-delay:.35s}
+.card.show .rip:nth-child(4){animation-delay:.7s}
+@keyframes rip{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.card .refl{position:relative;width:54%;display:flex;flex-direction:column;align-items:center;filter:blur(6px);opacity:0;transform:scaleY(.94)}
+.card.show .refl{animation:surface .9s .15s ease-out forwards}
+/* only the words take the pointer, so the round pool never blocks the constellations around it */
+.card.show{pointer-events:none}
+.card.show .refl{pointer-events:auto}
+@keyframes surface{to{filter:blur(0);opacity:1;transform:none}}
+.card .refl::after{content:"";position:absolute;left:-6%;right:-6%;top:0;bottom:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,0) 0 9px,rgba(255,255,255,.035) 9px 10px);mask-image:radial-gradient(closest-side,#000,transparent)}
+.card .status{border:0;padding:0;font-size:10.5px;letter-spacing:.16em}
+.card h2{font-size:32px;line-height:1.1;margin:10px 0 0;text-shadow:0 0 18px color-mix(in srgb,var(--c) 60%,transparent)}
+.card .gk{margin:4px 0 16px}
+.card .def{font-size:14.5px;margin:0 0 8px}
+.card .body{font-size:13.5px;line-height:1.65;margin:0 0 22px}
+.card .tp{font-size:12px;line-height:1.5;color:var(--dust);margin:0 0 20px}
+.card .tp b{font-weight:500;color:var(--star)}
+.card a.open,.card .pilot{margin-top:0;align-self:center}
+.card .dots{display:none;gap:9px;margin-top:18px}
+.card .dots i{width:6px;height:6px;border-radius:50%;background:var(--dust);opacity:.4}
+.card .dots i.on{background:var(--c);opacity:1}
+@media (max-width:640px){
+  .card{top:58%;width:min(380px,calc(100vw - 12px))}
+  .sky.showing .cst:not(.on){opacity:.45}
+  .card .refl{width:72%}
+  .card h2{font-size:28px}
+  .card .def{font-size:14px;margin-bottom:18px}
+  .card .body,.card .tp{display:none}
+  .card .dots{display:flex}
+}
+@media (prefers-reduced-motion:reduce){
+  .card.show .rip{animation:none}
+  .card .refl,.card.show .refl{animation:none;filter:none;opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar gutter">
+    <a class="brand" href="#top" aria-label="Paideia, Taejae Learning Suite, home"><span class="brand-dot" aria-hidden="true"></span><b>Paideia</b><span class="sub">· Taejae Learning Suite</span></a>
+    <nav aria-label="Suite">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="links" id="links">
+      <a href="#about" id="nav-about">About</a>
+      <a href="https://jkwahk02.github.io/Telos/" target="_blank" rel="noopener"><span class="pip" style="background:var(--telos)"></span>Telos</a>
+      <a href="https://jkwahk02.github.io/TaeSyllaPro/" target="_blank" rel="noopener"><span class="pip" style="background:var(--taesylla)"></span>TaeSylla</a>
+      <a href="https://jkwahk02.github.io/Ergon/" target="_blank" rel="noopener"><span class="pip" style="background:var(--ergon)"></span>Ergon</a>
+      <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span>Arete <span class="soon">Nov</span></a>
+      </div>
+      <div class="acct" id="acct">
+        <button type="button" id="acctBtn">Sign in</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="sky locked" id="sky" aria-label="The four apps of the suite">
+    <canvas id="galaxy" aria-hidden="true"></canvas>
+    <div class="mast"><h1>Paideia</h1><span class="gk">παιδεία</span><p>Taejae Learning Suite</p></div>
+
+    <button class="cst" id="telos" data-app="telos" style="--c:var(--telos)" aria-describedby="card">
+      <svg viewBox="0 0 76 76" aria-hidden="true"><polyline points="48,26 37,38 29,47 22,57"/><circle class="tw" cx="37" cy="38" r="2.2"/><circle class="tw" cx="29" cy="47" r="2.2"/><circle class="tw" cx="22" cy="57" r="2.2"/><path d="M48 13 L50.8 23.2 L61 26 L50.8 28.8 L48 39 L45.2 28.8 L35 26 L45.2 23.2 Z"/></svg>
+      <span class="nm">Telos</span><span class="gk">τέλος</span><span class="en">purpose</span>
+    </button>
+    <button class="cst" id="taesylla" data-app="taesylla" style="--c:var(--taesylla)" aria-describedby="card">
+      <svg viewBox="0 0 76 76" aria-hidden="true"><polyline points="22,20 22,54 56,54"/><line class="faint" x1="22" y1="20" x2="56" y2="54"/><circle class="tw" cx="22" cy="20" r="2.4"/><circle class="tw" cx="22" cy="37" r="2"/><circle class="tw" cx="22" cy="54" r="3.2"/><circle class="tw" cx="39" cy="54" r="2"/><circle class="tw" cx="56" cy="54" r="2.4"/></svg>
+      <span class="nm">TaeSylla</span><span class="gk">σίλλυβος</span><span class="en">course</span>
+    </button>
+    <button class="cst" id="ergon" data-app="ergon" style="--c:var(--ergon)" aria-describedby="card">
+      <svg viewBox="0 0 76 76" aria-hidden="true"><polygon points="27,24 50,21 56,52 21,55"/><circle class="tw" cx="27" cy="24" r="2.7"/><circle class="tw" cx="50" cy="21" r="2.7"/><circle class="tw" cx="56" cy="52" r="3.3"/><circle class="tw" cx="21" cy="55" r="2.7"/></svg>
+      <span class="nm">Ergon</span><span class="gk">ἔργον</span><span class="en">work</span>
+    </button>
+    <button class="cst" id="arete" data-app="arete" style="--c:var(--arete)" aria-describedby="card">
+      <svg viewBox="0 0 76 76" aria-hidden="true"><polyline points="19,30 26,46 38,52 50,46 57,30"/><circle class="tw" cx="19" cy="30" r="2.5"/><circle class="tw" cx="26" cy="46" r="2.5"/><circle class="tw" cx="38" cy="52" r="3.6"/><circle class="tw" cx="50" cy="46" r="2.5"/><circle class="tw" cx="57" cy="30" r="2.5"/></svg>
+      <span class="nm">Arete</span><span class="gk">ἀρετή</span><span class="en">excellence</span>
+    </button>
+
+    <div class="core">
+      <form class="signin" id="signin" novalidate>
+        <h2>One sign-in for the whole suite</h2>
+        <p class="lead">Use your Taejae account for Telos, TaeSylla, Ergon and Arete.</p>
+        <div class="field"><label for="email">Taejae email</label><input id="email" type="email" autocomplete="username" placeholder="name@taejae.ac.kr"></div>
+        <div class="field"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password"></div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="go" type="submit">Sign in</button>
+        <div class="meta" style="justify-content:flex-end"><button type="button" id="peek">Look around first</button></div>
+        <p class="note">Preview page. Sign-in is not connected yet, so nothing you type leaves this page.</p>
+      </form>
+      <div class="motto" id="motto" hidden>
+        <span class="mq"><b>Purpose</b> guides a well-designed <b>course</b>, and the course gives shape to the <b>work</b>. Through that work <b>excellence</b> is revealed, and it fulfils its <b>purpose</b>.</span>
+        <span class="hint"><span class="h-hover">Hover a constellation</span><span class="h-tap">Tap a constellation</span></span>
+      </div>
+    </div>
+
+    <div class="card" id="card" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="about">
+    <div class="about gutter">
+      <div>
+        <span class="kicker">About</span>
+        <h2>From purpose to excellence in one learning cycle</h2>
+        <p>Paideia, the Taejae Learning Suite, brings advising, course design, student work and outcomes assessment onto one shared foundation, so evidence of learning no longer breaks between systems.</p>
+        <p>Students set goals in Telos. Faculty design the course in TaeSylla. Work is shown and rated in Ergon. Arete turns those ratings into course and program outcomes, which flow back to advising and to the next course design.</p>
+        <p class="pai"><b>Paideia</b> means education in its fullest sense, and here it holds the whole cycle.</p>
+        <blockquote>“Purpose (Telos) guides a well-designed course (TaeSylla), and the course gives shape to the work (Ergon). Through that work excellence (Aretē) is revealed, and it fulfils its purpose (Telos).”<span>Inspired by Aristotle</span></blockquote>
+      </div>
+      <div>
+        <ul class="apps">
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span></div><span class="st">Pilot · open</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span></div><span class="st">Pilot · Nov 2026</span></li>
+        </ul>
+        <p class="cycle">Telos → TaeSylla → Ergon → Arete → back to Telos</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot gutter">
+    <div class="who"><small>Created by</small>Jiyoung Kwahk</div>
+    <div class="fine">Taejae University · Paideia · Taejae Learning Suite · 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const APPS = {
+    telos:{name:"Telos",greek:"τέλος",mean:"purpose",star:"Polaris",def:"Advising and academic planning",body:"Students set goals and plan courses with their advisor. Advisors keep the record; program chairs see advising load.",tp:"Student · Advisor · Program chair",status:"In operation",href:"https://jkwahk02.github.io/Telos/"},
+    taesylla:{name:"TaeSylla",greek:"σίλλυβος",mean:"syllabus",star:"Norma",def:"Course design and syllabus",body:"Faculty design each course with its CLOs, tasks, rubrics and schedule. Students read the published syllabus of their current, planned and past courses and look for more in Course Finder. Program chairs keep the curriculum map.",tp:"Faculty · Program chair · Student",status:"In operation",href:"https://jkwahk02.github.io/TaeSyllaPro/"},
+    ergon:{name:"Ergon",greek:"ἔργον",mean:"work",star:"Hercules",def:"Student work and showrooms",body:"Students keep their work in studios and send it to showrooms. The host invites the class or guests, and rubric ratings are made right next to the work.",tp:"Creator · Host · Invitee",status:"Pilot · open",href:"https://jkwahk02.github.io/Ergon/"},
+    arete:{name:"Arete",greek:"ἀρετή",mean:"excellence",star:"Corona Borealis",def:"Learning outcomes assessment",body:"Turns the ratings from Ergon into course and program outcomes at the CLO, PLO and ILO level.",tp:"Faculty · Program chair · Committee",status:"Pilot · Nov 2026",href:""}
+  };
+  const ORDER = ["telos","taesylla","ergon","arete"];
+  const ANG = {telos:215,taesylla:325,ergon:35,arete:145};
+  const touch = matchMedia("(hover: none)").matches;
+  const sky = document.getElementById("sky");
+  const cv = document.getElementById("galaxy");
+  const ctx = cv.getContext("2d");
+  const card = document.getElementById("card");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W=0,H=0,dpr=1,bg=[],arms=[],rot=0,comet=0,pos={},signedIn=false;
+
+  function geom(){
+    if(W < 640) return {cx:W/2, cy:H*0.58, rx:0, ry:0};
+    return {cx:W/2, cy:H/2, rx:W*0.30, ry:H*0.31};
+  }
+  function place(){
+    const g = geom();
+    ORDER.forEach(k=>{
+      const a = ANG[k]*Math.PI/180, i = ORDER.indexOf(k);
+      const x = W < 640 ? W*(i+0.5)/ORDER.length : g.cx + g.rx*Math.cos(a);
+      const y = W < 640 ? 186 : g.cy + g.ry*Math.sin(a);
+      pos[k]={x,y};
+      const el = document.getElementById(k);
+      el.style.left = x+"px"; el.style.top = y+"px";
+    });
+  }
+  function seed(){
+    const narrow = W < 640;
+    bg=[]; const n = Math.round(W*H/(narrow?2600:1500));
+    for(let i=0;i<n;i++) bg.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,a:Math.random()*0.6+0.15,p:Math.random()*6.28,s:Math.random()*0.02+0.004});
+    arms=[]; const R = Math.min(W,H)*0.46, m = narrow ? 1300 : 2600;
+    for(let i=0;i<m;i++){
+      const arm = i%2, t = Math.pow(Math.random(),0.7);
+      const th = arm*Math.PI + t*4.4 + (Math.random()-0.5)*0.55*(1-t*0.4);
+      const sc = (Math.random()-0.5)*R*0.12*(0.4+t);
+      const r = t*R + sc;
+      const warm = Math.max(0,1-t*1.8);
+      const tint = Math.random()<0.06 ? ["#5AA6EE","#46BE92","#E89447","#A77BE0"][i%4] : null;
+      arms.push({r,th,size:Math.random()*1.3+0.3,a:(0.25+0.6*(1-t))*(Math.random()*0.6+0.4),warm,tint});
+    }
+  }
+  function resize(){
+    const b = sky.getBoundingClientRect();
+    W=b.width; H=b.height; dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    seed(); place(); if(reduce) draw();
+    if(W < 640 && !sky.classList.contains("locked") && !card.classList.contains("show")) show(current || "telos");
+  }
+  function draw(){
+    ctx.fillStyle="#070B16"; ctx.fillRect(0,0,W,H);
+    for(const s of bg){ s.p+=s.s; ctx.globalAlpha = s.a*(0.65+0.35*Math.sin(s.p)); ctx.fillStyle="#E6ECFF"; ctx.fillRect(s.x,s.y,s.r,s.r); }
+    const g = geom();
+    const core = ctx.createRadialGradient(g.cx,g.cy,0,g.cx,g.cy,Math.min(W,H)*0.32);
+    core.addColorStop(0,"rgba(255,236,200,.42)"); core.addColorStop(.25,"rgba(190,170,255,.12)"); core.addColorStop(1,"rgba(7,11,22,0)");
+    ctx.globalAlpha=1; ctx.fillStyle=core; ctx.fillRect(0,0,W,H);
+    const tilt=-0.38, sq=0.5, ct=Math.cos(tilt), st=Math.sin(tilt);
+    for(const p of arms){
+      const a = p.th + rot*(1.2-p.r/Math.min(W,H));
+      const x0 = p.r*Math.cos(a), y0 = p.r*Math.sin(a)*sq;
+      const x = g.cx + x0*ct - y0*st, y = g.cy + x0*st + y0*ct;
+      ctx.globalAlpha = p.a;
+      ctx.fillStyle = p.tint || (p.warm>0.3 ? "#FFE6C2" : "#B9C8FF");
+      ctx.fillRect(x,y,p.size,p.size);
+    }
+    ctx.globalAlpha=1;
+    if(W < 640) return;   // phones: no orbit or comet, the row of constellations stands in for it
+    ctx.setLineDash([2,7]); ctx.strokeStyle="rgba(214,222,245,.16)"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.ellipse(g.cx,g.cy,g.rx,g.ry,0,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+    if(!reduce){
+      for(let i=0;i<14;i++){
+        const a = comet - i*0.012;
+        const x = g.cx + g.rx*Math.cos(a), y = g.cy + g.ry*Math.sin(a);
+        ctx.globalAlpha = (1-i/14)*0.85; ctx.fillStyle="#F2DFA9";
+        ctx.beginPath(); ctx.arc(x,y,Math.max(0.4,2.2-i*0.14),0,Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha=1;
+    }
+  }
+  let visible = true;
+  new IntersectionObserver(es=>{ visible = es[0].isIntersecting; }).observe(sky);
+  function loop(){ if(visible && !document.hidden){ rot+=0.0009; comet+=0.0032; draw(); } requestAnimationFrame(loop); }
+
+  /* info card */
+  let hideT=null, current=null;
+  function show(k, pinned){
+    const d = APPS[k]; if(!d) return;
+    clearTimeout(hideT); current=k;
+    document.querySelectorAll(".cst").forEach(e=>e.classList.toggle("on", e.id===k));
+    card.style.setProperty("--c", getComputedStyle(document.documentElement).getPropertyValue("--"+k));
+    card.innerHTML =
+      '<span class="well-rim"></span><span class="rip"></span><span class="rip"></span><span class="rip"></span>'+
+      '<div class="refl"><span class="status">'+d.status+'</span><h2>'+d.name+'</h2>'+
+      '<p class="gk"><i>'+d.greek+'</i> · '+d.mean+'</p>'+
+      '<p class="def">'+d.def+'</p><p class="body">'+d.body+'</p>'+
+      (d.href ? '<a class="open" href="'+d.href+'" target="_blank" rel="noopener">Open '+d.name+' →</a>' : '<span class="pilot">Opens with the November pilot</span>')+
+      '<span class="dots" aria-hidden="true">'+ORDER.map(o=>'<i'+(o===k?' class="on"':'')+'></i>').join('')+'</span></div>';
+    card.classList.add("show"); sky.classList.add("showing");
+  }
+  function hideNow(){ clearTimeout(hideT); card.classList.remove("show"); sky.classList.remove("showing"); document.querySelectorAll(".cst").forEach(e=>e.classList.remove("on")); current=null; }
+  function hide(){ clearTimeout(hideT); hideT = setTimeout(hideNow, 260); }
+  function step(d){ const i = ORDER.indexOf(current); show(ORDER[(i+d+ORDER.length)%ORDER.length]); }
+  document.querySelectorAll(".cst").forEach(el=>{
+    if(!touch){
+      el.addEventListener("mouseenter",()=>show(el.id));
+      el.addEventListener("mouseleave",hide);
+      el.addEventListener("focus",()=>show(el.id));
+      el.addEventListener("blur",hide);
+    }
+    el.addEventListener("click",()=>{
+      if(W < 640){ show(el.id); return; }
+      current===el.id && card.classList.contains("show") ? (touch ? hideNow() : hide()) : show(el.id,true);
+    });
+  });
+  /* phones: swipe the well to the next app in cycle order; tap outside it to close */
+  let tx = null, ty = null;
+  sky.addEventListener("touchstart", e=>{ const t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, {passive:true});
+  sky.addEventListener("touchend", e=>{
+    if(tx === null || !card.classList.contains("show")) return;
+    const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty; tx = null;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)*1.3) step(dx < 0 ? 1 : -1);
+  }, {passive:true});
+  sky.addEventListener("click", e=>{
+    if(touch && W >= 640 && card.classList.contains("show") && !e.target.closest(".cst,.refl")) hideNow();
+  });
+  card.addEventListener("mouseenter",()=>clearTimeout(hideT));
+  card.addEventListener("mouseleave",hide);
+
+  /* sign-in (preview only: nothing is sent or stored) */
+  const form = document.getElementById("signin"), err = document.getElementById("err");
+  const email = document.getElementById("email"), pw = document.getElementById("pw");
+  const motto = document.getElementById("motto"), acct = document.getElementById("acct");
+  function unlock(who){
+    signedIn = !!who; sky.classList.remove("locked");
+    form.hidden = true; motto.hidden = false;
+    renderAcct(who);
+    if(W < 640) show(current || "telos");
+  }
+  function renderAcct(who){
+    acct.innerHTML = "";
+    if(who){
+      const local = who.split("@")[0];
+      const ini = local.split(/[._-]/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase() || local.slice(0,2).toUpperCase();
+      acct.innerHTML = '<span class="avatar" aria-hidden="true">'+ini+'</span><span class="acct-mail">'+who.replace(/[<>&"]/g,"")+'</span><button type="button" id="acctBtn">Sign out</button>';
+      document.getElementById("acctBtn").onclick = lock;
+    } else {
+      acct.innerHTML = '<button type="button" id="acctBtn">Sign in</button>';
+      document.getElementById("acctBtn").onclick = lock;
+    }
+  }
+  function lock(){
+    signedIn=false; sky.classList.add("locked"); form.hidden=false; motto.hidden=true;
+    card.classList.remove("show"); sky.classList.remove("showing"); pw.value=""; err.textContent=""; renderAcct(null);
+    sky.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"}); setTimeout(()=>email.focus(),300);
+  }
+  form.addEventListener("submit", e=>{
+    e.preventDefault();
+    const v = email.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ err.textContent="Enter your Taejae email address."; email.focus(); return; }
+    if(!pw.value){ err.textContent="Enter your password."; pw.focus(); return; }
+    err.textContent=""; pw.value=""; unlock(v);
+  });
+  [email,pw].forEach(i=>i.addEventListener("input",()=>err.textContent=""));
+  document.getElementById("peek").addEventListener("click",()=>unlock(null));
+  document.getElementById("acctBtn").onclick = lock;
+  document.querySelectorAll("nav a[data-focus]").forEach(a=>a.addEventListener("click",e=>{
+    e.preventDefault(); if(sky.classList.contains("locked")) unlock(null);
+    sky.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"});
+    setTimeout(()=>{ const el=document.getElementById(a.dataset.focus); el.focus({preventScroll:true}); show(a.dataset.focus,true); }, reduce?0:350);
+  }));
+
+  const menuBtn = document.getElementById("menuBtn"), links = document.getElementById("links");
+  function setMenu(open){ links.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", String(open)); }
+  menuBtn.addEventListener("click", e=>{ e.stopPropagation(); setMenu(!links.classList.contains("open")); });
+  links.addEventListener("click", e=>{ if(e.target.closest("a")) setMenu(false); });
+  document.addEventListener("click", e=>{ if(!e.target.closest("nav")) setMenu(false); });
+  document.addEventListener("keydown", e=>{ if(e.key === "Escape") setMenu(false); });
+
+  new ResizeObserver(resize).observe(sky);
+  resize();
+  if(!reduce) requestAnimationFrame(loop);
+})();
+</script>
+
+</body>
+</html>
