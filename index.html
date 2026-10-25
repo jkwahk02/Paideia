@@ -261,7 +261,33 @@ footer{border-top:1px solid var(--hair)}
 .cst{--sz:clamp(150px,9vw,200px)}
 .cst .nm{font-size:clamp(22px,1.45vw,30px)}
 .cst .gk{font-size:clamp(16px,1vw,20px)}
-.cst .en{font-size:clamp(12.5px,.75vw,15px)}
+.cst .en{font-size:clamp(14px,.95vw,17px);color:var(--star);opacity:1;letter-spacing:.1em;font-weight:500}
+.cst .gk{color:var(--star);opacity:.85}
+/* the suite name under the title and in the header: white and larger so it reads at a glance */
+.mast p{font-size:clamp(14px,1vw,17px);color:var(--star);letter-spacing:.24em;margin-top:8px}
+.mast .gk{color:var(--star);opacity:.85}
+.brand .sub{font-size:16px;color:var(--star);opacity:.9}
+/* header: the Paideia logo beside a larger name, and larger links on the right */
+.brand{gap:12px}
+.brand-logo{width:34px;height:34px;flex:none;filter:drop-shadow(0 0 8px rgba(242,223,169,.25))}
+.brand b{font-size:25px}
+nav a,.open-btn{font-size:16px}
+.open-btn svg{width:13px;height:13px}
+.acct button{font-size:15.5px;padding:6px 16px}
+.avatar{width:34px;height:34px;font-size:13px}
+.acct{position:relative}
+.acct-btn{display:flex;align-items:center;gap:9px;padding:3px 8px 3px 3px!important;border:0!important;border-radius:999px;background:transparent;color:var(--star);cursor:pointer}
+.acct-btn:hover{background:rgba(255,255,255,.06)}
+.acct-name{font-size:15.5px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-btn .caret{font-size:11px;color:var(--dust)}
+.acct-menu{display:none;position:absolute;right:0;top:calc(100% + 10px);min-width:240px;padding:6px;background:var(--ink-2);border:1px solid var(--hair);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.45);z-index:12}
+.acct-menu.on{display:block}
+.acct-menu .who{padding:10px 12px 10px;border-bottom:1px solid var(--hair);margin-bottom:4px}
+.acct-menu .who b{display:block;font-weight:500;font-size:15.5px}
+.acct-menu .who small{display:block;font-size:13.5px;color:var(--dust)}
+.acct-menu button{display:block;width:100%;text-align:left;font:inherit;font-size:15px;color:var(--star);background:none;border:0;border-radius:10px;padding:9px 12px;cursor:pointer}
+.acct-menu button:hover{background:rgba(255,255,255,.06)}
+.acct-menu button.out{color:#F4A6A6}
 .card{width:min(clamp(620px,40vw,820px),calc(100vw - 8px))}
 .card .refl{width:60%}
 /* the larger well needs room under the title: a taller sky, and the well sits a little below the middle */
@@ -278,22 +304,34 @@ footer{border-top:1px solid var(--hair)}
 .card .pilot{font-size:clamp(15px,.9vw,17px)}
 .motto{font-size:clamp(19px,1.25vw,24px)}
 .hint{font-size:13px}
-.apps .d{font-size:16px}
-.apps .x{font-size:16px}
-.apps .lg{font-size:15px}
-.about p{font-size:16px}
+.about h2{font-size:clamp(34px,2.6vw,48px)}
+.about p{font-size:clamp(17.5px,1.1vw,20px);line-height:1.65}
+.about p.pai{font-size:clamp(20px,1.3vw,24px)}
+.about blockquote{font-size:clamp(21px,1.35vw,25px)}
+.about blockquote span,.kicker{font-size:13.5px}
+.apps strong{font-size:clamp(23px,1.5vw,28px)}
+.apps .g{font-size:clamp(16px,1vw,18px)}
+.apps .d{font-size:clamp(17.5px,1.1vw,20px)}
+.apps .x{font-size:clamp(17px,1.05vw,19.5px);line-height:1.6}
+.apps .lg{font-size:clamp(16px,1vw,18px)}
+.apps .f li{font-size:14px}
+.apps .st{font-size:12.5px}
+.apps li{grid-template-columns:60px minmax(0,1fr) auto}
+.apps li > svg{width:60px;height:60px}
+.foot .fine{font-size:14.5px}
 /* full width: the page uses the whole window, with side margins that grow with it */
 .gutter{padding-left:max(clamp(16px,4vw,80px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,80px),env(safe-area-inset-right,0px))}
 .bar,.about,.foot{max-width:none}
-.about{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(40px,5vw,96px)}
-@media (min-width:1400px){
-  .apps{grid-template-columns:1fr 1fr;column-gap:48px}
-}
+.about{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(40px,5vw,96px)}
 @media (max-width:860px){
   .about{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .sky{height:clamp(640px,calc(100svh - 62px),780px)}
+  .acct-name{display:none}
+  .brand b{font-size:21px}
+  .brand-logo{width:30px;height:30px}
+  .mast p{font-size:12.5px;letter-spacing:.2em}
   .card{top:58%}
   .core{top:56%}
   .cst{--sz:60px}
@@ -313,7 +351,7 @@ footer{border-top:1px solid var(--hair)}
 
 <header>
   <div class="bar gutter">
-    <a class="brand" href="#top" aria-label="Paideia, Taejae Learning Suite, home"><span class="brand-dot" aria-hidden="true"></span><b>Paideia</b><span class="sub">· Taejae Learning Suite</span></a>
+    <a class="brand" href="#top" aria-label="Paideia, Taejae Learning Suite, home"><svg class="brand-logo" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#141A2E"/><ellipse cx="38" cy="38" rx="25" ry="15" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1.6" transform="rotate(-20 38 38)"/><circle cx="15.5" cy="45" r="3.6" fill="#378ADD"/><circle cx="58" cy="22" r="3.6" fill="#3FA77A"/><circle cx="62" cy="36" r="3.6" fill="#E08A2E"/><circle cx="17" cy="56" r="3.6" fill="#8A5CC2"/><path d="M38 22 L41.5 34.5 L54 38 L41.5 41.5 L38 54 L34.5 41.5 L22 38 L34.5 34.5 Z" fill="#F2DFA9"/></svg><b>Paideia</b><span class="sub">· Taejae Learning Suite</span></a>
     <nav aria-label="Suite">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="links" id="links">
@@ -323,12 +361,12 @@ footer{border-top:1px solid var(--hair)}
         <div class="open-menu" id="openMenu">
           <a href="https://jkwahk02.github.io/Telos/" id="nav-telos" target="_blank" rel="opener"><span class="pip" style="background:var(--telos)"></span><span><b>Telos</b><small>Advising and academic planning</small></span></a>
           <a href="https://jkwahk02.github.io/TaeSyllaPro/" target="_blank" rel="opener"><span class="pip" style="background:var(--taesylla)"></span><span><b>TaeSylla</b><small>Course design and syllabus</small></span></a>
-          <a href="https://jkwahk02.github.io/Ergon/" target="_blank" rel="opener"><span class="pip" style="background:var(--ergon)"></span><span><b>Ergon</b><small>Student work and showrooms</small></span></a>
+          <a href="https://jkwahk02.github.io/Ergon/" target="_blank" rel="opener"><span class="pip" style="background:var(--ergon)"></span><span><b>Ergon</b><small>Studios and showrooms for student and faculty work</small></span></a>
           <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span><span><b>Arete <span class="soon">Nov</span></b><small>Learning outcomes assessment</small></span></a>
         </div>
       </div>
       </div>
-      <button type="button" class="gear" id="gearBtn" aria-label="Settings" aria-expanded="false" aria-controls="setPop"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M10.3 2.8h3.4l.5 2.6a7.4 7.4 0 0 1 1.9 1.1l2.5-.9 1.7 2.9-2 1.7a7.6 7.6 0 0 1 0 2.2l2 1.7-1.7 2.9-2.5-.9a7.4 7.4 0 0 1-1.9 1.1l-.5 2.6h-3.4l-.5-2.6a7.4 7.4 0 0 1-1.9-1.1l-2.5.9-1.7-2.9 2-1.7a7.6 7.6 0 0 1 0-2.2l-2-1.7 1.7-2.9 2.5.9a7.4 7.4 0 0 1 1.9-1.1z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      
       <div class="set-pop" id="setPop" role="dialog" aria-label="Settings">
         <h3>Settings</h3>
         <div class="set-row">
@@ -410,7 +448,7 @@ footer{border-top:1px solid var(--hair)}
         <ul class="apps">
           <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span><p class="x">Students set goals and plan their courses with their advisor. Advisors keep a record of every meeting, and chairs see the whole program.</p><p class="lg">Logo: Polaris, the North Star, at the end of the Little Dipper. It keeps a fixed direction, as a purpose does.</p><ul class="f"><li>Advising meetings and logs</li><li>Booking by office hours</li><li>Graduation requirements</li><li>Course plan by term</li><li>Program view for chairs</li></ul></div><span class="st">In operation</span></li>
           <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span><p class="x">Faculty design each course in one place and publish the syllabus that students read. Chairs keep the curriculum map.</p><p class="lg">Logo: Norma, the carpenter’s square. A square sets true lines, as a syllabus sets the shape of a course.</p><ul class="f"><li>Syllabus and schedule</li><li>CLOs and rubrics</li><li>Readings and lesson plans</li><li>Curriculum map</li><li>Course Finder</li></ul></div><span class="st">In operation</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span><p class="x">Students keep their work in studios and send it to showrooms, where the class or guests view it and faculty rate it.</p><p class="lg">Logo: the Keystone of Hercules, the hero of the twelve labours. It stands for work that is made and shown.</p><ul class="f"><li>Studios for projects and teams</li><li>Showrooms with dated sessions</li><li>Invitations for class or guests</li><li>Rubric rating next to the work</li><li>Votes and comments</li></ul></div><span class="st">Pilot · open</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Studios and showrooms for student and faculty work</span><p class="x">Students and faculty keep their work in studios, from team projects to faculty lectures and special talks, and send it to showrooms. The class or invited guests view it there, and faculty rate student work.</p><p class="lg">Logo: the Keystone of Hercules, the hero of the twelve labours. It stands for work that is made and shown.</p><ul class="f"><li>Studios for team projects and faculty lectures</li><li>Showrooms with dated sessions</li><li>Invitations for class or guests</li><li>Rubric rating next to the work</li><li>Votes and comments</li></ul></div><span class="st">Pilot · open</span></li>
           <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span><p class="x">Arete turns the ratings from Ergon into course and program outcomes, and keeps the record for accreditation.</p><p class="lg">Logo: Corona Borealis, the Northern Crown. A crown honours excellence that has been reached.</p><ul class="f"><li>Rubric to CLO, PLO and ILO</li><li>Student progress over terms</li><li>Course reports for faculty</li><li>Program results for chairs</li><li>Closing the loop</li></ul></div><span class="st">Pilot · Nov 2026</span></li>
         </ul>
       </div>
@@ -431,7 +469,7 @@ footer{border-top:1px solid var(--hair)}
   const APPS = {
     telos:{name:"Telos",greek:"τέλος",mean:"purpose",star:"Polaris",def:"Advising and academic planning",body:"Students set goals and plan courses with their advisor. Advisors keep the record; program chairs see advising load.",tp:"Student · Advisor · Program chair",status:"In operation",href:"https://jkwahk02.github.io/Telos/"},
     taesylla:{name:"TaeSylla",greek:"σίλλυβος",mean:"syllabus",star:"Norma",def:"Course design and syllabus",body:"Faculty design each course with its CLOs, tasks, rubrics and schedule. Students read the published syllabus of their current, planned and past courses and look for more in Course Finder. Program chairs keep the curriculum map.",tp:"Faculty · Program chair · Student",status:"In operation",href:"https://jkwahk02.github.io/TaeSyllaPro/"},
-    ergon:{name:"Ergon",greek:"ἔργον",mean:"work",star:"Hercules",def:"Student work and showrooms",body:"Students keep their work in studios and send it to showrooms. The host invites the class or guests, and rubric ratings are made right next to the work.",tp:"Creator · Host · Invitee",status:"Pilot · open",href:"https://jkwahk02.github.io/Ergon/"},
+    ergon:{name:"Ergon",greek:"ἔργον",mean:"work",star:"Hercules",def:"Studios and showrooms for student and faculty work",body:"Students and faculty keep their work in studios, from team projects to lectures and special talks, and send it to showrooms. The host invites the class or guests, and student work is rated right next to it.",tp:"Creator · Host · Invitee",status:"Pilot · open",href:"https://jkwahk02.github.io/Ergon/"},
     arete:{name:"Arete",greek:"ἀρετή",mean:"excellence",star:"Corona Borealis",def:"Learning outcomes assessment",body:"Turns the ratings from Ergon into course and program outcomes at the CLO, PLO and ILO level.",tp:"Faculty · Program chair · Committee",status:"Pilot · Nov 2026",href:""}
   };
   const ORDER = ["telos","taesylla","ergon","arete"];
@@ -503,13 +541,18 @@ footer{border-top:1px solid var(--hair)}
     ctx.setLineDash([2,7]); ctx.strokeStyle="rgba(214,222,245,.16)"; ctx.lineWidth=1;
     ctx.beginPath(); ctx.ellipse(g.cx,g.cy,g.rx,g.ry,0,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
     if(!reduce){
-      for(let i=0;i<14;i++){
-        const a = comet - i*0.012;
+      // the comet: a glowing head and a long tapering tail, a little larger on wide screens
+      const k = Math.min(1.6, Math.max(1, W/1280)), n = 48;
+      for(let i=n-1;i>=0;i--){
+        const a = comet - i*0.0075;
         const x = g.cx + g.rx*Math.cos(a), y = g.cy + g.ry*Math.sin(a);
-        ctx.globalAlpha = (1-i/14)*0.85; ctx.fillStyle="#F2DFA9";
-        ctx.beginPath(); ctx.arc(x,y,Math.max(0.4,2.2-i*0.14),0,Math.PI*2); ctx.fill();
+        ctx.globalAlpha = Math.pow(1-i/n, 1.6)*0.9; ctx.fillStyle="#F2DFA9";
+        ctx.beginPath(); ctx.arc(x,y,Math.max(0.5,(4.2-i*0.08)*k),0,Math.PI*2); ctx.fill();
       }
-      ctx.globalAlpha=1;
+      const hx = g.cx + g.rx*Math.cos(comet), hy = g.cy + g.ry*Math.sin(comet), hr = 18*k;
+      const glow = ctx.createRadialGradient(hx,hy,0,hx,hy,hr);
+      glow.addColorStop(0,"rgba(255,244,214,.95)"); glow.addColorStop(.25,"rgba(242,223,169,.45)"); glow.addColorStop(1,"rgba(242,223,169,0)");
+      ctx.globalAlpha=1; ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(hx,hy,hr,0,Math.PI*2); ctx.fill();
     }
   }
   let visible = true;
@@ -579,7 +622,7 @@ footer{border-top:1px solid var(--hair)}
   const GCAL_CLIENT_ID = "290444850759-26d8ch9qjk7hvsudgavlqi8tdngsgism.apps.googleusercontent.com";
   const GCAL_SCOPE = "https://www.googleapis.com/auth/calendar";
   const GCAL_KEY = "paideia_gcal";
-  let sbUser = null, role = null, attempts = 0, lockedOut = false;
+  let sbUser = null, role = null, meName = "", attempts = 0, lockedOut = false;
   const form = document.getElementById("signin"), err = document.getElementById("err");
   const email = document.getElementById("email"), pw = document.getElementById("pw"), go = document.getElementById("go");
   const pwform = document.getElementById("pwform"), err2 = document.getElementById("err2"), go2 = document.getElementById("go2");
@@ -640,17 +683,30 @@ footer{border-top:1px solid var(--hair)}
     renderAcct(who);
     if(W < 640) show(current || "telos");
   }
+  // signed in: avatar, name and a menu (name and email, Settings, Sign out), as in Telos
   function renderAcct(who){
     acct.innerHTML = "";
     if(who){
-      const local = who.split("@")[0];
-      const ini = local.split(/[._-]/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase() || local.slice(0,2).toUpperCase();
-      acct.innerHTML = '<span class="avatar" aria-hidden="true">'+ini+'</span><span class="acct-mail">'+who.replace(/[<>&"]/g,"")+'</span><button type="button" id="acctBtn">Sign out</button>';
-      document.getElementById("acctBtn").onclick = signOut;
+      const clean = t=>String(t).replace(/[<>&"]/g,"");
+      const name = meName || who.split("@")[0];
+      const ini = name.split(/[\s._-]+/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase();
+      acct.innerHTML = '<button type="button" class="acct-btn" id="acctBtn" aria-haspopup="true" aria-expanded="false" aria-controls="acctMenu">'+
+        '<span class="avatar" aria-hidden="true">'+clean(ini)+'</span><span class="acct-name">'+clean(name)+'</span><span class="caret" aria-hidden="true">▾</span></button>'+
+        '<div class="acct-menu" id="acctMenu"><div class="who"><b>'+clean(name)+'</b><small>'+clean(who)+'</small></div>'+
+        '<button type="button" id="acctSettings">Settings</button><button type="button" id="acctOut" class="out">Sign out</button></div>';
+      const btn = document.getElementById("acctBtn"), menu = document.getElementById("acctMenu");
+      btn.onclick = e=>{ e.stopPropagation(); setOpen(false); setGear(false); const on = !menu.classList.contains("on"); menu.classList.toggle("on", on); btn.setAttribute("aria-expanded", String(on)); };
+      menu.onclick = e=>e.stopPropagation();
+      document.getElementById("acctSettings").onclick = e=>{ e.stopPropagation(); setAcct(false); setGear(true); };
+      document.getElementById("acctOut").onclick = ()=>{ setAcct(false); signOut(); };
     } else {
       acct.innerHTML = '<button type="button" id="acctBtn">Sign in</button>';
       document.getElementById("acctBtn").onclick = lock;
     }
+  }
+  function setAcct(on){
+    const m = document.getElementById("acctMenu"), b = document.getElementById("acctBtn");
+    if(m){ m.classList.toggle("on", on); b.setAttribute("aria-expanded", String(on)); }
   }
   function lock(){
     signedIn=false; sky.classList.add("locked"); form.hidden=false; pwform.hidden=true; motto.hidden=true;
@@ -688,7 +744,7 @@ footer{border-top:1px solid var(--hair)}
     sbUser = null; role = null; clearSessions(); setLinks(); renderSettings(); lock();
   }
   async function afterAuth(){
-    const p = await profile(); role = p.role; setLinks();
+    const p = await profile(); role = p.role; meName = p.name; setLinks();
     if(p.must){ form.hidden = true; pwform.hidden = false; err2.textContent = ""; document.getElementById("pw1").focus(); return; }
     unlock(meEmail()); renderSettings();
   }
@@ -753,15 +809,14 @@ footer{border-top:1px solid var(--hair)}
 
   // Open ▾ and the settings gear: one popover at a time, closed by a click outside or Escape
   const openBtn = document.getElementById("openBtn"), openMenu = document.getElementById("openMenu");
-  const gearBtn = document.getElementById("gearBtn"), setPop = document.getElementById("setPop");
+  const setPop = document.getElementById("setPop");
   function setOpen(on){ openMenu.classList.toggle("on", on); openBtn.setAttribute("aria-expanded", String(on)); }
-  function setGear(on){ setPop.classList.toggle("on", on); gearBtn.setAttribute("aria-expanded", String(on)); if(on) renderSettings(); }
-  openBtn.addEventListener("click", e=>{ e.stopPropagation(); setGear(false); setOpen(!openMenu.classList.contains("on")); });
-  gearBtn.addEventListener("click", e=>{ e.stopPropagation(); setOpen(false); setGear(!setPop.classList.contains("on")); });
+  function setGear(on){ setPop.classList.toggle("on", on); if(on) renderSettings(); }
+  openBtn.addEventListener("click", e=>{ e.stopPropagation(); setGear(false); setAcct(false); setOpen(!openMenu.classList.contains("on")); });
   openMenu.addEventListener("click", e=>{ if(e.target.closest("a")) setOpen(false); });
   setPop.addEventListener("click", e=>e.stopPropagation());
-  document.addEventListener("click", ()=>{ setOpen(false); setGear(false); });
-  document.addEventListener("keydown", e=>{ if(e.key === "Escape"){ setOpen(false); setGear(false); } });
+  document.addEventListener("click", ()=>{ setOpen(false); setGear(false); setAcct(false); });
+  document.addEventListener("keydown", e=>{ if(e.key === "Escape"){ setOpen(false); setGear(false); setAcct(false); } });
   renderSettings();
   const menuBtn = document.getElementById("menuBtn"), links = document.getElementById("links");
   function setMenu(open){ links.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", String(open)); }
