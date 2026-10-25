@@ -263,6 +263,10 @@ footer{border-top:1px solid var(--hair)}
 .cst .gk{font-size:clamp(16px,1vw,20px)}
 .cst .en{font-size:clamp(14px,.95vw,17px);color:var(--star);opacity:1;letter-spacing:.1em;font-weight:500}
 .cst .gk{color:var(--star);opacity:.85}
+/* a little air between the name, the Greek word and its meaning */
+.cst .nm{margin-top:10px;line-height:1.25}
+.cst .gk{margin-top:6px;line-height:1.3}
+.cst .en{margin-top:6px;line-height:1.3}
 /* the suite name under the title and in the header: white and larger so it reads at a glance */
 .mast p{font-size:clamp(14px,1vw,17px);color:var(--star);letter-spacing:.24em;margin-top:8px}
 .mast .gk{color:var(--star);opacity:.85}
@@ -340,6 +344,7 @@ nav a,.open-btn{font-size:16px}
 }
 @media (max-width:640px){
   .sky{height:clamp(640px,calc(100svh - 62px),780px)}
+  .cst .nm{margin-top:4px}.cst .gk{margin-top:2px}
   .bar{padding-block:12px}
   .acct-name{display:none}
   .brand b{font-size:21px}
