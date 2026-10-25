@@ -403,6 +403,7 @@ nav a,.open-btn{font-size:16px}
           <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span><span><b>Arete <span class="soon">Nov</span></b><small>Learning outcomes assessment</small></span></a>
         </div>
       </div>
+      <a href="#settings" id="navSettings" aria-controls="setPop">Settings</a>
       </div>
       
       <div class="set-pop" id="setPop" role="dialog" aria-label="Settings">
@@ -730,12 +731,10 @@ nav a,.open-btn{font-size:16px}
       const ini = name.split(/[\s._-]+/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase();
       acct.innerHTML = '<button type="button" class="acct-btn" id="acctBtn" aria-haspopup="true" aria-expanded="false" aria-controls="acctMenu">'+
         '<span class="avatar" aria-hidden="true">'+clean(ini)+'</span><span class="acct-name">'+clean(name)+'</span><span class="caret" aria-hidden="true">▾</span></button>'+
-        '<div class="acct-menu" id="acctMenu"><div class="who"><b>'+clean(name)+'</b><small>'+clean(who)+'</small></div>'+
-        '<button type="button" id="acctSettings">Settings</button><button type="button" id="acctOut" class="out">Sign out</button></div>';
+        '<div class="acct-menu" id="acctMenu"><button type="button" id="acctOut" class="out">Sign out</button></div>';
       const btn = document.getElementById("acctBtn"), menu = document.getElementById("acctMenu");
       btn.onclick = e=>{ e.stopPropagation(); setOpen(false); setGear(false); const on = !menu.classList.contains("on"); menu.classList.toggle("on", on); btn.setAttribute("aria-expanded", String(on)); };
       menu.onclick = e=>e.stopPropagation();
-      document.getElementById("acctSettings").onclick = e=>{ e.stopPropagation(); setAcct(false); setGear(true); };
       document.getElementById("acctOut").onclick = ()=>{ setAcct(false); signOut(); };
     } else {
       acct.innerHTML = '<button type="button" id="acctBtn">Sign in</button>';
@@ -850,6 +849,11 @@ nav a,.open-btn{font-size:16px}
   const setPop = document.getElementById("setPop");
   function setOpen(on){ openMenu.classList.toggle("on", on); openBtn.setAttribute("aria-expanded", String(on)); }
   function setGear(on){ setPop.classList.toggle("on", on); if(on) renderSettings(); }
+  // Settings is its own menu item, as in Telos, TaeSylla and Ergon; the account menu holds only Sign out
+  document.getElementById("navSettings").addEventListener("click", e=>{
+    e.preventDefault(); e.stopPropagation(); setOpen(false); setAcct(false); setMenu(false);
+    setGear(!setPop.classList.contains("on"));
+  });
   openBtn.addEventListener("click", e=>{ e.stopPropagation(); setGear(false); setAcct(false); setOpen(!openMenu.classList.contains("on")); });
   openMenu.addEventListener("click", e=>{ if(e.target.closest("a")) setOpen(false); });
   setPop.addEventListener("click", e=>e.stopPropagation());
