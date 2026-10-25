@@ -318,7 +318,12 @@ nav a,.open-btn{font-size:16px}
 .apps .d{font-size:clamp(17.5px,1.1vw,20px)}
 .apps .x{font-size:clamp(17px,1.05vw,19.5px);line-height:1.6}
 .apps .lg{font-size:clamp(16px,1vw,18px)}
-.apps .f li{font-size:14px}
+/* features: a tidy two-column list with small gold marks instead of loose pills */
+.apps .f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px;margin-top:6px}
+.apps .f li{display:flex;align-items:baseline;gap:10px;padding:0;border:0;border-radius:0;font-size:clamp(15.5px,.95vw,17.5px);line-height:1.45;color:var(--star)}
+.apps .f li:last-child{border:0}
+.apps .f li::before{content:"";flex:none;width:6px;height:6px;background:var(--gold);transform:translateY(-3px) rotate(45deg);opacity:.85}
+@media (max-width:640px){ .apps .f{grid-template-columns:1fr} }
 .apps .st{font-size:12.5px}
 .apps li{grid-template-columns:60px minmax(0,1fr) auto}
 .apps li > svg{width:60px;height:60px}
