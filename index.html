@@ -396,6 +396,13 @@ nav a,.open-btn{font-size:16px}
   .card.show .rip{animation:none}
   .card .refl,.card.show .refl{animation:none;filter:none;opacity:1;transform:none}
 }
+
+/* menu and account at Telos sizes; the role badge beside the name */
+nav a,.open-btn{font-size:18.5px}
+.acct-name{font-size:18.5px}
+.avatar{width:32px;height:32px;font-size:12px}
+.acct button{font-size:17px}
+.acct-btn .role-badge{font-family:inherit;font-size:10px;font-weight:600;background:rgba(242,223,169,.16);color:var(--gold);padding:2px 7px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex:none;}
 </style>
 </head>
 <body>
@@ -754,7 +761,7 @@ nav a,.open-btn{font-size:16px}
       const name = meName || who.split("@")[0];
       const ini = name.split(/[\s._-]+/).filter(Boolean).map(s=>s[0]).join("").slice(0,2).toUpperCase();
       acct.innerHTML = '<button type="button" class="acct-btn" id="acctBtn" aria-haspopup="true" aria-expanded="false" aria-controls="acctMenu">'+
-        '<span class="avatar" aria-hidden="true">'+clean(ini)+'</span><span class="acct-name">'+clean(name)+'</span><span class="caret" aria-hidden="true">▾</span></button>'+
+        '<span class="avatar" aria-hidden="true">'+clean(ini)+'</span><span class="acct-name">'+clean(name)+'</span>'+(role ? '<span class="role-badge">'+(role === "student" ? "Student" : "Faculty")+'</span>' : '')+'<span class="caret" aria-hidden="true">▾</span></button>'+
         '<div class="acct-menu" id="acctMenu"><div class="who"><b>'+clean(name)+'</b><span>'+(role === "student" ? "Student" : role === "faculty" ? "Professor" : "")+'</span><span>'+clean(who)+'</span></div><button type="button" id="acctPw">Change password</button><button type="button" id="acctOut" class="out">Sign out</button></div>';
       const btn = document.getElementById("acctBtn"), menu = document.getElementById("acctMenu");
       btn.onclick = e=>{ e.stopPropagation(); setOpen(false); setGear(false); const on = !menu.classList.contains("on"); menu.classList.toggle("on", on); btn.setAttribute("aria-expanded", String(on)); };
