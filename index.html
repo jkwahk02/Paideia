@@ -159,6 +159,7 @@ nav a .pip{width:7px;height:7px;border-radius:50%}
 .apps .g{font-family:var(--f-greek);font-style:italic;color:var(--dust);margin-left:8px}
 .apps .d{display:block;color:var(--star);font-size:14px;margin-top:2px}
 .apps .x{margin:6px 0 10px;color:var(--dust);font-size:14px;line-height:1.55}
+.apps .lg{margin:-4px 0 10px;color:var(--dust);font-size:14px;line-height:1.55;font-style:italic}
 .apps .f{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .apps .f li{display:block;padding:2px 10px;border:1px solid var(--hair);border-radius:999px;font-size:12px;color:var(--star);line-height:1.6}
 .apps .f li:last-child{border-bottom:1px solid var(--hair)}
@@ -254,6 +255,53 @@ footer{border-top:1px solid var(--hair)}
   .card .def{font-size:14px;margin-bottom:18px}
   .card .body,.card .tp{display:none}
   .card .dots{display:flex}
+}
+/* larger type, about the size of Telos and TaeSylla body text, growing a little on wide screens:
+   constellation labels and the words in the well */
+.cst{--sz:clamp(150px,9vw,200px)}
+.cst .nm{font-size:clamp(22px,1.45vw,30px)}
+.cst .gk{font-size:clamp(16px,1vw,20px)}
+.cst .en{font-size:clamp(12.5px,.75vw,15px)}
+.card{width:min(clamp(620px,40vw,820px),calc(100vw - 8px))}
+.card .refl{width:60%}
+/* the larger well needs room under the title: a taller sky, and the well sits a little below the middle */
+.sky{height:clamp(700px,92vh,940px)}
+.card{top:54%}
+.core{top:54%}
+.card .status{font-size:clamp(12.5px,.75vw,14px)}
+.card h2{font-size:clamp(38px,2.5vw,50px)}
+.card .gk{font-size:clamp(18px,1.1vw,22px)}
+.card .def{font-size:clamp(17.5px,1.1vw,21px)}
+.card .body{font-size:clamp(16.5px,1vw,19px)}
+.card .tp{font-size:clamp(14.5px,.85vw,16.5px)}
+.card a.open{font-size:clamp(15.5px,.95vw,18px);padding:8px 18px}
+.card .pilot{font-size:clamp(15px,.9vw,17px)}
+.motto{font-size:clamp(19px,1.25vw,24px)}
+.hint{font-size:13px}
+.apps .d{font-size:16px}
+.apps .x{font-size:16px}
+.apps .lg{font-size:15px}
+.about p{font-size:16px}
+/* full width: the page uses the whole window, with side margins that grow with it */
+.gutter{padding-left:max(clamp(16px,4vw,80px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,80px),env(safe-area-inset-right,0px))}
+.bar,.about,.foot{max-width:none}
+.about{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(40px,5vw,96px)}
+@media (min-width:1400px){
+  .apps{grid-template-columns:1fr 1fr;column-gap:48px}
+}
+@media (max-width:860px){
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .sky{height:clamp(640px,calc(100svh - 62px),780px)}
+  .card{top:58%}
+  .core{top:56%}
+  .cst{--sz:60px}
+  .cst .nm{font-size:16px}.cst .gk{font-size:13px}
+  .card{width:min(420px,calc(100vw - 12px))}
+  .card .refl{width:74%}
+  .card h2{font-size:32px}
+  .card .def{font-size:16.5px}
 }
 @media (prefers-reduced-motion:reduce){
   .card.show .rip{animation:none}
@@ -360,10 +408,10 @@ footer{border-top:1px solid var(--hair)}
       </div>
       <div>
         <ul class="apps">
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span><p class="x">Students set goals and plan their courses with their advisor. Advisors keep a record of every meeting, and chairs see the whole program.</p><ul class="f"><li>Advising meetings and logs</li><li>Booking by office hours</li><li>Graduation requirements</li><li>Course plan by term</li><li>Program view for chairs</li></ul></div><span class="st">In operation</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span><p class="x">Faculty design each course in one place and publish the syllabus that students read. Chairs keep the curriculum map.</p><ul class="f"><li>Syllabus and schedule</li><li>CLOs and rubrics</li><li>Readings and lesson plans</li><li>Curriculum map</li><li>Course Finder</li></ul></div><span class="st">In operation</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span><p class="x">Students keep their work in studios and send it to showrooms, where the class or guests view it and faculty rate it.</p><ul class="f"><li>Studios for projects and teams</li><li>Showrooms with dated sessions</li><li>Invitations for class or guests</li><li>Rubric rating next to the work</li><li>Votes and comments</li></ul></div><span class="st">Pilot · open</span></li>
-          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span><p class="x">Arete turns the ratings from Ergon into course and program outcomes, and keeps the record for accreditation.</p><ul class="f"><li>Rubric to CLO, PLO and ILO</li><li>Student progress over terms</li><li>Course reports for faculty</li><li>Program results for chairs</li><li>Closing the loop</li></ul></div><span class="st">Pilot · Nov 2026</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#185FA5"/><polyline points="48,26 37,38 29,47 22,57" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="37" cy="38" r="3"/><circle cx="29" cy="47" r="3"/><circle cx="22" cy="57" r="3"/><path d="M48 12 L51.5 22.5 L62 26 L51.5 29.5 L48 40 L44.5 29.5 L34 26 L44.5 22.5 Z"/></g></svg><div><strong>Telos</strong><span class="g">τέλος · purpose</span><span class="d">Advising and academic planning</span><p class="x">Students set goals and plan their courses with their advisor. Advisors keep a record of every meeting, and chairs see the whole program.</p><p class="lg">Logo: Polaris, the North Star, at the end of the Little Dipper. It keeps a fixed direction, as a purpose does.</p><ul class="f"><li>Advising meetings and logs</li><li>Booking by office hours</li><li>Graduation requirements</li><li>Course plan by term</li><li>Program view for chairs</li></ul></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#2E7D5B"/><polyline points="22,20 22,54 56,54" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><line x1="22" y1="20" x2="56" y2="54" stroke="#fff" stroke-opacity=".35" stroke-width="2.5"/><g fill="#fff"><circle cx="22" cy="20" r="3.4"/><circle cx="22" cy="37" r="3"/><circle cx="22" cy="54" r="4.4"/><circle cx="39" cy="54" r="3"/><circle cx="56" cy="54" r="3.4"/></g></svg><div><strong>TaeSylla</strong><span class="g">σίλλυβος · syllabus</span><span class="d">Course design and syllabus</span><p class="x">Faculty design each course in one place and publish the syllabus that students read. Chairs keep the curriculum map.</p><p class="lg">Logo: Norma, the carpenter’s square. A square sets true lines, as a syllabus sets the shape of a course.</p><ul class="f"><li>Syllabus and schedule</li><li>CLOs and rubrics</li><li>Readings and lesson plans</li><li>Curriculum map</li><li>Course Finder</li></ul></div><span class="st">In operation</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#B45309"/><polygon points="27,24 50,21 56,52 21,55" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="27" cy="24" r="3.8"/><circle cx="50" cy="21" r="3.8"/><circle cx="56" cy="52" r="4.4"/><circle cx="21" cy="55" r="3.8"/></g></svg><div><strong>Ergon</strong><span class="g">ἔργον · work</span><span class="d">Student work and showrooms</span><p class="x">Students keep their work in studios and send it to showrooms, where the class or guests view it and faculty rate it.</p><p class="lg">Logo: the Keystone of Hercules, the hero of the twelve labours. It stands for work that is made and shown.</p><ul class="f"><li>Studios for projects and teams</li><li>Showrooms with dated sessions</li><li>Invitations for class or guests</li><li>Rubric rating next to the work</li><li>Votes and comments</li></ul></div><span class="st">Pilot · open</span></li>
+          <li><svg viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="18" fill="#502579"/><polyline points="19,30 26,46 38,52 50,46 57,30" stroke="#fff" stroke-opacity=".6" stroke-width="2.5" fill="none"/><g fill="#fff"><circle cx="19" cy="30" r="3.6"/><circle cx="26" cy="46" r="3.6"/><circle cx="38" cy="52" r="5"/><circle cx="50" cy="46" r="3.6"/><circle cx="57" cy="30" r="3.6"/></g></svg><div><strong>Arete</strong><span class="g">ἀρετή · excellence</span><span class="d">Learning outcomes assessment</span><p class="x">Arete turns the ratings from Ergon into course and program outcomes, and keeps the record for accreditation.</p><p class="lg">Logo: Corona Borealis, the Northern Crown. A crown honours excellence that has been reached.</p><ul class="f"><li>Rubric to CLO, PLO and ILO</li><li>Student progress over terms</li><li>Course reports for faculty</li><li>Program results for chairs</li><li>Closing the loop</li></ul></div><span class="st">Pilot · Nov 2026</span></li>
         </ul>
       </div>
     </div>
@@ -398,7 +446,8 @@ footer{border-top:1px solid var(--hair)}
 
   function geom(){
     if(W < 640) return {cx:W/2, cy:H*0.58, rx:0, ry:0};
-    return {cx:W/2, cy:H/2, rx:W*0.30, ry:H*0.31};
+    // spread across the full width, keeping the outer labels clear of the edge
+    return {cx:W/2, cy:H*0.54, rx:Math.min(W*0.38, W/2 - 130), ry:H*0.30};
   }
   function place(){
     const g = geom();
