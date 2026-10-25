@@ -273,9 +273,9 @@ footer{border-top:1px solid var(--hair)}
       <div class="open-wrap">
         <button type="button" class="open-btn" id="openBtn" aria-expanded="false" aria-controls="openMenu">Open<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
         <div class="open-menu" id="openMenu">
-          <a href="https://jkwahk02.github.io/Telos/" id="nav-telos"><span class="pip" style="background:var(--telos)"></span><span><b>Telos</b><small>Advising and academic planning</small></span></a>
-          <a href="https://jkwahk02.github.io/TaeSyllaPro/"><span class="pip" style="background:var(--taesylla)"></span><span><b>TaeSylla</b><small>Course design and syllabus</small></span></a>
-          <a href="https://jkwahk02.github.io/Ergon/"><span class="pip" style="background:var(--ergon)"></span><span><b>Ergon</b><small>Student work and showrooms</small></span></a>
+          <a href="https://jkwahk02.github.io/Telos/" id="nav-telos" target="_blank" rel="opener"><span class="pip" style="background:var(--telos)"></span><span><b>Telos</b><small>Advising and academic planning</small></span></a>
+          <a href="https://jkwahk02.github.io/TaeSyllaPro/" target="_blank" rel="opener"><span class="pip" style="background:var(--taesylla)"></span><span><b>TaeSylla</b><small>Course design and syllabus</small></span></a>
+          <a href="https://jkwahk02.github.io/Ergon/" target="_blank" rel="opener"><span class="pip" style="background:var(--ergon)"></span><span><b>Ergon</b><small>Student work and showrooms</small></span></a>
           <a href="#arete" data-focus="arete"><span class="pip" style="background:var(--arete)"></span><span><b>Arete <span class="soon">Nov</span></b><small>Learning outcomes assessment</small></span></a>
         </div>
       </div>
@@ -479,7 +479,7 @@ footer{border-top:1px solid var(--hair)}
       '<div class="refl"><span class="status">'+d.status+'</span><h2>'+d.name+'</h2>'+
       '<p class="gk"><i>'+d.greek+'</i> · '+d.mean+'</p>'+
       '<p class="def">'+d.def+'</p><p class="body">'+d.body+'</p>'+
-      (d.href ? '<a class="open" href="'+d.href+'">Open '+d.name+' →</a>' : '<span class="pilot">Opens with the November pilot</span>')+
+      (d.href ? '<a class="open" href="'+d.href+'" target="_blank" rel="opener">Open '+d.name+' →</a>' : '<span class="pilot">Opens with the November pilot</span>')+
       '<span class="dots" aria-hidden="true">'+ORDER.map(o=>'<i'+(o===k?' class="on"':'')+'></i>').join('')+'</span></div>';
     card.classList.add("show"); sky.classList.add("showing");
   }
@@ -497,7 +497,7 @@ footer{border-top:1px solid var(--hair)}
     // On a touch screen the first tap only shows the description, a second tap opens the app.
     el.addEventListener("click",()=>{
       const href = APPS[el.id].href, open = current===el.id && card.classList.contains("show");
-      if(href && (!touch || open)){ location.href = href; return; }
+      if(href && (!touch || open)){ window.open(href, "_blank"); return; }
       if(W < 640){ show(el.id); return; }
       open ? (touch ? hideNow() : hide()) : show(el.id,true);
     });
@@ -517,8 +517,10 @@ footer{border-top:1px solid var(--hair)}
   card.addEventListener("mouseleave",hide);
 
   /* sign-in: the same Supabase accounts as Telos, TaeSylla and Ergon.
-     The session is kept in sessionStorage under a key every suite app reads (same origin, same tab),
-     so opening an app from here skips its sign-in. Closing the tab signs out, as in the apps. */
+     The session is kept in sessionStorage under a key every suite app reads (same origin).
+     Apps open in a new tab; with an opener (rel="opener", window.open without noopener) the browser
+     copies this tab's sessionStorage into it, so the app skips its sign-in. Closing a tab signs it out.
+     Each tab then renews its copy on its own, so after about an hour one tab may be signed out. */
   const SUPABASE_URL = "https://ecktuualyuvctixlkjve.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVja3R1dWFseXV2Y3RpeGxranZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxOTczOTgsImV4cCI6MjA5MDc3MzM5OH0.EauKNa2US2VQ4dTdCzx0DBZXlw4OR-CQnlMRuulYfB8";
   const SUITE_KEY = "paideia_session";
@@ -534,7 +536,19 @@ footer{border-top:1px solid var(--hair)}
   const pwform = document.getElementById("pwform"), err2 = document.getElementById("err2"), go2 = document.getElementById("go2");
   const motto = document.getElementById("motto"), acct = document.getElementById("acct");
 
-  function saveSession(){ try{ sessionStorage.setItem(SUITE_KEY, JSON.stringify(sbUser)); }catch(e){} }
+  // Tabs opened from Paideia start with a copy of one session. Supabase rotates the refresh token on every renewal,
+  // so a tab hands each renewed session to the other suite tabs (same origin), and takes a newer one for the same
+  // person from them. Without this, the next tab to renew would be refused and the session revoked.
+  var SUITE_CH = "BroadcastChannel" in window ? new BroadcastChannel("paideia_suite") : null;
+  function saveSession(quiet){
+    try{ sessionStorage.setItem(SUITE_KEY, JSON.stringify(sbUser)); }catch(e){}
+    if(!quiet && SUITE_CH && sbUser) SUITE_CH.postMessage({ session: sbUser });
+  }
+  if(SUITE_CH) SUITE_CH.onmessage = e => {
+    const s = e.data && e.data.session, me = sbUser && sbUser.user && sbUser.user.email;
+    if(!s || !s.access_token || !me || !s.user || s.user.email !== me || (s.expires_at || 0) <= (sbUser.expires_at || 0)) return;
+    sbUser = s; saveSession(true);
+  };
   function clearSessions(){ try{ SUITE_KEYS.forEach(k=>sessionStorage.removeItem(k)); }catch(e){} }
   // the newest session any suite app left in this tab
   function newestSession(){
