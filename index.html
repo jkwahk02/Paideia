@@ -406,6 +406,12 @@ nav a,.open-btn{font-size:18.5px}
 .apps a.app-link{color:inherit;text-decoration:none}
 .apps a.app-link:hover strong{text-decoration:underline;text-underline-offset:4px}
 
+
+/* menu as on Arete: 14 px, 26 px apart; an item grows a little on hover */
+@media (min-width:641px){ nav{gap:26px} .links{gap:26px} .bar{padding-block:22px} }
+nav a{font-size:14px;transition:transform .15s ease,color .15s ease;transform-origin:center bottom}
+nav a:hover{transform:scale(1.08);color:var(--gold)}
+.acct-name{font-size:14px}
 </style>
 </head>
 <body>
